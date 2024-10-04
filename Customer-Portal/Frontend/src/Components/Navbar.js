@@ -31,7 +31,7 @@ const Navbar = () => {
                     <>
                         <button className="navbar-profile-button">
                             <img src="https://via.placeholder.com/30" alt="User Profile" />
-                            John Doe
+                            Logged In
                         </button>
 
                         <div className="navbar-profile-dropdown">
