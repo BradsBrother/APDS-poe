@@ -9,9 +9,9 @@ const Dashboard = () => {
         const fetchData = async () => {
             // Simulate fetching transactions
             setTransactions([
-                { id: 1, date: '2024-09-01', amount: '$500', status: 'Completed' },
-                { id: 2, date: '2024-09-02', amount: '$250', status: 'Pending' },
-                { id: 3, date: '2024-09-03', amount: '$1200', status: 'Completed' },
+                { id: 1, date: '2024-09-01', amount: 'R500', status: 'Completed' },
+                { id: 2, date: '2024-09-02', amount: 'R250', status: 'Pending' },
+                { id: 3, date: '2024-09-03', amount: 'R1200', status: 'Completed' },
             ]);
         };
 
@@ -26,8 +26,8 @@ const Dashboard = () => {
                 <div className="section">
                     <div className="dashboard-card">
                         <h2>Account Overview</h2>
-                        <p>Balance: $5,000</p>
-                        <p>Last Payment: $250 on 2024-09-02</p>
+                        <p>Balance: R5,000</p>
+                        <p>Last Payment: R250 on 2024-09-02</p>
                     </div>
                 </div>
 

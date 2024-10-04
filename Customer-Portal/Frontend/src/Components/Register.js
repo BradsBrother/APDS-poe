@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import authService from '../Services/authService';
 import { validateIDNumber, validateAccountNumber, validatePassword } from '../Utils/Validations';
 import '../Styles/Register.css';
@@ -9,13 +11,12 @@ const Register = () => {
     const [accountNumber, setAccountNumber] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [passwordVisible, setPasswordVisible] = useState(false);
 
     const handleRegister = async (e) => {
         e.preventDefault();
-
         setErrorMessage('');
 
-        // Validate input before making the API call
         if (!validateIDNumber(idNumber)) {
             return setErrorMessage('Invalid ID Number');
         }
@@ -32,6 +33,10 @@ const Register = () => {
         } catch (error) {
             setErrorMessage('Registration failed');
         }
+    };
+
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
     };
 
     return (
@@ -61,13 +66,23 @@ const Register = () => {
                         onChange={(e) => setAccountNumber(e.target.value)}
                         required
                     />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
+
+                    <div className="password-container">
+                        <input
+                            type={passwordVisible ? 'text' : 'password'}
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                        <span
+                            className="password-toggle-icon"
+                            onClick={togglePasswordVisibility}
+                        >
+                            <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />
+                        </span>
+                    </div>
+
                     <button type="submit">Register</button>
                 </form>
                 <a href="/login" className="small-text">Already have an account? Log in</a>

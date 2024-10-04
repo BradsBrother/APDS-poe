@@ -1,36 +1,44 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../Styles/Navbar.css'; // Import the stylesheet
+import { useAuth  } from '../Services/authContext'
+import '../Styles/Navbar.css';
 
 const Navbar = () => {
+    const { isAuthenticated, login, logout } = useAuth();
     return (
         <nav className="navbar">
-            {/* Logo - Can be replaced with an actual image */}
             <Link to="/" className="navbar-logo">
                 BasicBank
             </Link>
 
-            {/* Navigation links */}
             <div className="navbar-links">
-                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/">Dashboard</Link>
                 <Link to="/transaction">Transactions</Link>
-                <Link to="/Register">Register</Link>
-                <Link to="/Login">Login</Link>
+                {!isAuthenticated ? (
+                    <>
+                        <Link to="/Register">Register</Link>
+                        <Link to="/Login">Login</Link>
+                    </>
+                ) : (
+                    // Show a button or link to logout if authenticated
+                    <button onClick={logout} className="navbar-logout-button">Logout</button>
+                )}
             </div>
 
-            {/* Profile dropdown for logged-in users */}
             <div className="navbar-profile">
-                <button className="navbar-profile-button">
-                    <img src="https://via.placeholder.com/30" alt="User Profile" />
-                    John Doe {/* Placeholder name */}
-                </button>
+                {/* You might want to conditionally show user profile details here */}
+                {isAuthenticated && (
+                    <>
+                        <button className="navbar-profile-button">
+                            <img src="https://via.placeholder.com/30" alt="User Profile" />
+                            John Doe
+                        </button>
 
-                {/* Profile dropdown menu */}
-                <div className="navbar-profile-dropdown">
-                    <Link to="/profile">Profile</Link>
-                    <Link to="/settings">Settings</Link>
-                    <Link to="/logout">Logout</Link>
-                </div>
+                        <div className="navbar-profile-dropdown">
+                            <Link to="/logout">Logout</Link>
+                        </div>
+                    </>
+                )}
             </div>
         </nav>
     );

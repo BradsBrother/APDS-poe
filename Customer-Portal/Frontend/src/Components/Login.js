@@ -9,14 +9,13 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
         setErrorMessage('');
 
         try {
-            await authService.login({ idNumber, password });
+            const response = await authService.login({ idNumber, password });
             alert('Login successful');
         } catch (error) {
-            setErrorMessage('Invalid ID number or password');
+            setErrorMessage(error.response?.data?.message || 'Invalid ID number or password');
         }
     };
 
