@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import authService from '../Services/authService';
 import '../Styles/Login.css';
 
 const Login = () => {
-    const [idNumber, setIdNumber] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [accountNumber, setAccountNumber] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [passwordVisible, setPasswordVisible] = useState(false);
 
     const handleLogin = async (e) => {
         e.preventDefault();
         setErrorMessage('');
 
         try {
-            const response = await authService.login({ idNumber, password });
+            // Adjust the data being sent to the login service
+            const response = await authService.login({ fullName, accountNumber, password });
             alert('Login successful');
+            // Optionally, handle the response further (e.g., redirect to dashboard)
         } catch (error) {
-            setErrorMessage(error.response?.data?.message || 'Invalid ID number or password');
+            setErrorMessage(error.response?.data?.message || 'Invalid account number or password');
         }
+    };
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
     };
 
     return (
@@ -27,18 +36,33 @@ const Login = () => {
                 <form onSubmit={handleLogin}>
                     <input
                         type="text"
-                        placeholder="ID Number"
-                        value={idNumber}
-                        onChange={(e) => setIdNumber(e.target.value)}
+                        placeholder="Full Name"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
                         required
                     />
                     <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        type="text"
+                        placeholder="Account Number"
+                        value={accountNumber}
+                        onChange={(e) => setAccountNumber(e.target.value)}
                         required
                     />
+                    <div className="password-container">
+                        <input
+                            type={passwordVisible ? 'text' : 'password'}
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                        <span
+                                className="password-toggle-icon"
+                                onClick={togglePasswordVisibility}
+                            >
+                            <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />
+                        </span>
+                    </div>
                     <button type="submit">Login</button>
                 </form>
                 <a href="/register" className="small-text">Don't have an account? Register</a>
