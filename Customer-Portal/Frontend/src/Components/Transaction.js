@@ -1,39 +1,63 @@
 import React, { useState } from 'react';
-import '../Styles/Transaction.css'; 
+import { makePayment } from '../Services/paymentService';
+import { validateAccNo, validateAmount, validateCurrency } from '../Utils/Validations';
+import '../Styles/Transaction.css';
 
-const Transaction = () => {
-    const [amount, setAmount] = useState('');
-    const [recipient, setRecipient] = useState('');
+const Payment = () => {
+  const [acc_no, setAccNo] = useState('');
+  const [amount, setAmount] = useState('');
+  const [currency, setCurrency] = useState('');
 
-    const handlePayment = (e) => {
-        e.preventDefault();
-        alert(`Payment of $${amount} sent to ${recipient}`);
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    return (
-        <div className="transaction-container">
-            <div className="transaction-box">
-                <h1>Send a Payment</h1>
-                <form onSubmit={handlePayment}>
-                    <input
-                        type="text"
-                        placeholder="Recipient Name"
-                        value={recipient}
-                        onChange={(e) => setRecipient(e.target.value)}
-                        required
-                    />
-                    <input
-                        type="number"
-                        placeholder="Amount"
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                        required
-                    />
-                    <button type="submit">Send Payment</button>
-                </form>
-            </div>
-        </div>
-    );
+    // Validate inputs
+    if (!validateAccNo(acc_no) || !validateAmount(amount) || !validateCurrency(currency)) {
+      alert('Invalid input. Please check your entries.');
+      return;
+    }
+
+    try {
+      const response = await makePayment({ acc_no, amount, currency });
+      // Handle successful payment
+      alert('Payment successful');
+      console.log('Payment successful', response.data);
+    } catch (error) {
+      console.error('Payment error', error.response?.data?.error);
+    }
+  };
+
+  return (
+    <div className="transaction-container">
+      <div className="transaction-box">
+        <h1>Payment</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Account Number"
+            value={acc_no}
+            onChange={(e) => setAccNo(e.target.value)}
+            required
+          />
+          <input
+            type="number"
+            placeholder="Amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Currency"
+            value={currency}
+            onChange={(e) => setCurrency(e.target.value)}
+            required
+          />
+          <button type="submit">Submit Payment</button>
+        </form>
+      </div>
+    </div>
+  );
 };
 
-export default Transaction;
+export default Payment;

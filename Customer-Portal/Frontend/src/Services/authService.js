@@ -1,18 +1,18 @@
 import axios from 'axios';
 
-const API_URL = '/api/auth';
-
-const login = async (userData) => {
-    const response = await axios.post(`${API_URL}/login`, userData);
-    return response.data;
+const authService = {
+    login: async (credentials) => {
+        return await axios.post('/api/auth/login', credentials);
+    },
+    signup: async (userData) => {
+        return await axios.post('/api/auth/register', userData);
+    },
+    getAccountOverview: async () => {
+        return await axios.get('/api/user/overview');
+    },
+    getRecentTransactions: async () => {
+        return await axios.get('/api/user/transactions');
+    }
 };
 
-const signup = async (userData) => {
-    const response = await axios.post(`${API_URL}/register`, userData);
-    return response.data;
-};
-
-export default {
-    login,
-    signup,
-};
+export default authService;
