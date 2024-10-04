@@ -1,0 +1,88 @@
+/* Main container for the form */
+.register-container {
+    background-color: #F5F5F5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    padding: 20px;
+}
+
+/* Form box styling */
+.register-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Form heading */
+.register-box h1 {
+    color: #003087;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Input fields styling */
+.register-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    background-color: #F9F9F9;
+    box-sizing: border-box;
+}
+
+/* Focus effect for inputs */
+.register-box input:focus {
+    outline: none;
+    border-color: #005BBB;
+    box-shadow: 0 0 4px rgba(0, 91, 187, 0.3);
+}
+
+/* Button styling */
+.register-box button {
+    width: 100%;
+    padding: 12px;
+    background-color: #003087;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.register-box button:hover {
+    background-color: #005BBB;
+}
+
+/* Error message styling */
+.error-message {
+    color: red;
+    margin-top: 5px;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Placeholder styling */
+.register-box input::placeholder {
+    color: #888;
+}
+
+/* Small text link */
+.register-box .small-text {
+    color: #005BBB;
+    font-size: 14px;
+    text-align: center;
+    display: block;
+    margin-top: 15px;
+    text-decoration: none;
+}

@@ -1,0 +1,50 @@
+/* Main container for dashboard */
+.dashboard-container {
+    padding: 30px;
+    background-color: #F5F5F5;
+    min-height: 100vh;
+}
+
+/* Card container for different sections */
+.dashboard-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.dashboard-header {
+    color: #003087;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Section for overview and recent transactions */
+.dashboard-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.dashboard-section .section {
+    flex: 1;
+}
+
+/* Table styling for transactions */
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transaction-table th, .transaction-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #DDD;
+}
+
+.transaction-table th {
+    background-color: #003087;
+    color: white;
+}

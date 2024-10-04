@@ -1,0 +1,55 @@
+/* Container for transaction page */
+.transaction-container {
+    background-color: #F5F5F5;
+    padding: 50px;
+    min-height: 100vh;
+}
+
+.transaction-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.transaction-box h1 {
+    color: #003087;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.transaction-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #F9F9F9;
+}
+
+.transaction-box input:focus {
+    outline: none;
+    border-color: #005BBB;
+    box-shadow: 0 0 4px rgba(0, 91, 187, 0.3);
+}
+
+.transaction-box button {
+    width: 100%;
+    padding: 12px;
+    background-color: #003087;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.transaction-box button:hover {
+    background-color: #005BBB;
+}
