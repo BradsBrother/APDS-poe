@@ -2,7 +2,7 @@
 .dashboard-container {
     padding: 30px;
     background-color: #F5F5F5;
-    min-height: 100vh;
+    min-height: 85vh;
 }
 
 /* Card container for different sections */

@@ -13,10 +13,24 @@ const Register = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
 
+    const user = {fullName, idNumber, accountNumber, password}
+
+    
+        
+    
+
     const handleRegister = async (e) => {
         e.preventDefault();
         setErrorMessage('');
-
+        const response = await fetch("http://localhost:3030/api/User/signup", {
+            method: "POST",
+            body: JSON.stringify(user),
+            headers: {
+                "Content-Type" : "application/json"
+            }
+        })
+        const json = await response.json()
+    
         if (!validateIDNumber(idNumber)) {
             return setErrorMessage('Invalid ID Number');
         }
@@ -26,13 +40,18 @@ const Register = () => {
         if (!validatePassword(password)) {
             return setErrorMessage('Password must be at least 8 characters with upper/lowercase letters, numbers, and special characters.');
         }
-
-        try {
-            await authService.signup({ fullName, idNumber, accountNumber, password });
-            alert('Registration successful');
-        } catch (error) {
-            setErrorMessage('Registration failed');
+    
+        if(!response.ok){
+            setErrorMessage(json.error);
         }
+        else{
+            setFullName("")
+            setIdNumber("")
+            setAccountNumber("")
+            setPassword("")
+            setErrorMessage(null)
+        }
+
     };
 
     const togglePasswordVisibility = () => {
