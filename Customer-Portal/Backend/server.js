@@ -16,8 +16,8 @@ const cors = require('cors');
 const app = express();
 
 // Path for SSL certificate and key
-const sslKeyPath = path.resolve("C:/Users/zoe/Desktop/APDS-poe/Customer-Portal/Backend/ssl/server.key");
-const sslCertPath = path.resolve("C:/Users/zoe/Desktop/APDS-poe/Customer-Portal/Backend/ssl/server.cert");
+const sslKeyPath = path.resolve("./ssl/server.key");
+const sslCertPath = path.resolve("./ssl/server.cert");
 
 let sslKey, sslCert;
 

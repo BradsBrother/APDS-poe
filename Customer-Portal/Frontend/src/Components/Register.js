@@ -12,7 +12,13 @@ const Register = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
 
-    const user = { fullName, idNumber, accountNumber, password };
+    const user = {
+        name: fullName, // Change this
+        id_no: idNumber, // Change this
+        acc_no: accountNumber, // Change this
+        password
+    };
+    
 
     const handleRegister = async (e) => {
         e.preventDefault();

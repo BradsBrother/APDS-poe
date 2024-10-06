@@ -10,7 +10,12 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
 
-    const user = { fullName, accountNumber, password };
+    const user = {
+        name: fullName, // Change this
+        acc_no: accountNumber, // Change this
+        password
+    };
+    
     
     const handleLogin = async (e) => {
         e.preventDefault();
