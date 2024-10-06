@@ -12,19 +12,17 @@ function App() {
   return (
     <div className="App">
       <AuthProvider>
-        <Router>
-          <Navbar />
-          <header>
-            <Routes>
-              <Route path="/" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              {/* Protect Dashboard and Transaction routes */}
-              <Route 
-                path="/dashboard" 
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route 
+            path="/dashboard" 
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
                 } 
               />
               <Route 
@@ -36,7 +34,7 @@ function App() {
                 } 
               />
             </Routes>
-          </header>
+          
         </Router>
       </AuthProvider>
     </div>

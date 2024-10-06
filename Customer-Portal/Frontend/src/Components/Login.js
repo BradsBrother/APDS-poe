@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import '../Styles/Login.css';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../Services/authContext'; // Import useAuth
 
 const Login = () => {
     const [fullName, setFullName] = useState('');
@@ -9,18 +11,19 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const navigate = useNavigate();
+    const { login } = useAuth(); // Access the login function from useAuth
 
-    const user = {
-        name: fullName, // Change this
-        acc_no: accountNumber, // Change this
-        password
-    };
-    
-    
     const handleLogin = async (e) => {
         e.preventDefault();
         setErrorMessage('');
-
+      
+        const user = {
+            name: fullName,
+            acc_no: accountNumber,
+            password,
+        };
+      
         try {
             const response = await fetch("https://localhost:3030/api/User/login", {
                 method: "POST",
@@ -28,22 +31,25 @@ const Login = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                credentials: "include", // Include cookies if needed
+                credentials: "include",
             });
-
-            // Check response status
+      
             if (!response.ok) {
                 const json = await response.json();
                 setErrorMessage(json.error || 'An error occurred. Please try again.');
                 return;
             }
-
-            setErrorMessage(null);
+      
+            const data = await response.json();
+            // Call login with the token
+            login(data.token); // Now login is defined
+            navigate('/dashboard');
         } catch (error) {
-            console.error("Error during fetch:", error);
             setErrorMessage("An error occurred while logging in. Please try again later.");
         }
     };
+    
+    // Toggle password visibility
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
     };
@@ -77,9 +83,9 @@ const Login = () => {
                             required
                         />
                         <span
-                                className="password-toggle-icon"
-                                onClick={togglePasswordVisibility}
-                            >
+                            className="password-toggle-icon"
+                            onClick={togglePasswordVisibility}
+                        >
                             <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />
                         </span>
                     </div>

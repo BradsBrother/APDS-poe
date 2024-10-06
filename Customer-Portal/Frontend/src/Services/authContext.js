@@ -5,12 +5,15 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const login = () => {
+  const login = (token) => {
     setIsAuthenticated(true);
+    // Store the token in localStorage or cookies if needed
+    localStorage.setItem('token', token);
   };
 
   const logout = () => {
     setIsAuthenticated(false);
+    localStorage.removeItem('token'); // Clear the token from storage
   };
 
   return (
@@ -20,4 +23,5 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+// Export the useAuth hook
 export const useAuth = () => useContext(AuthContext);
