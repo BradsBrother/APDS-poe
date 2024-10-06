@@ -71,6 +71,12 @@
     font-size: 14px;
     text-align: center;
 }
+.success-message{
+    color: blue;
+    margin-top: 5px;
+    font-size: 14px;
+    text-align: center;
+}
 
 /* Placeholder styling */
 .register-box input::placeholder {
