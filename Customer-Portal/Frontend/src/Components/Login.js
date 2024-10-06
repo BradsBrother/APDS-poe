@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import authService from '../Services/authService';
 import '../Styles/Login.css';
 
 const Login = () => {
@@ -11,17 +10,33 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
 
+    const user = { fullName, accountNumber, password };
+    
     const handleLogin = async (e) => {
         e.preventDefault();
         setErrorMessage('');
 
         try {
-            // Adjust the data being sent to the login service
-            const response = await authService.login({ fullName, accountNumber, password });
-            alert('Login successful');
-            // Optionally, handle the response further (e.g., redirect to dashboard)
+            const response = await fetch("https://localhost:3030/api/User/login", {
+                method: "POST",
+                body: JSON.stringify(user),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include", // Include cookies if needed
+            });
+
+            // Check response status
+            if (!response.ok) {
+                const json = await response.json();
+                setErrorMessage(json.error || 'An error occurred. Please try again.');
+                return;
+            }
+
+            setErrorMessage(null);
         } catch (error) {
-            setErrorMessage(error.response?.data?.message || 'Invalid account number or password');
+            console.error("Error during fetch:", error);
+            setErrorMessage("An error occurred while logging in. Please try again later.");
         }
     };
     const togglePasswordVisibility = () => {

@@ -50,18 +50,18 @@ const userSchema = new Schema({
 
     userSchema.statics.loginUser = async function(name, acc_no, password){
         // validate if fields are actually filled
-        if (!name || !acc_no || !password){
-            throw Error('All fields must be filled')
-        }
-        
-        const user = await this.findOne({acc_no: acc_no})
+       
+        const user = await this.findOne({name: name})
     
         if(!user){
             throw Error("Incorrect account number")
         }
         
         const match = await bcrypt.compare(password, user.password)
-    
+
+        if (!name || !acc_no || !password){
+            throw Error('All fields must be filled')
+        }
         if(!match){
             throw Error("Incorrect password")
         }

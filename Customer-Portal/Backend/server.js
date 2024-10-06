@@ -39,9 +39,11 @@ const options = {
 app.use(helmet()); // Secure HTTP headers
 app.use(cookieParser()); // For handling cookies
 app.use(express.json()); // Parse JSON data
+
+// Updated CORS options to allow frontend origin and credentials
 const corsOptions = {
-  origin: 'http://localhost:3000', // Change this to your frontend URL
-  credentials: true, // Allow credentials
+  origin: 'https://localhost:3000', // Frontend URL
+  credentials: true, // Allow credentials (cookies)
 };
 app.use(cors(corsOptions));
 
