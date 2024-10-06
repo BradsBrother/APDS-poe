@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import authService from '../Services/authService';
 import { validateIDNumber, validateAccountNumber, validatePassword } from '../Utils/Validations';
 import '../Styles/Register.css';
 
@@ -13,24 +12,13 @@ const Register = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
 
-    const user = {fullName, idNumber, accountNumber, password}
-
-    
-        
-    
+    const user = { fullName, idNumber, accountNumber, password };
 
     const handleRegister = async (e) => {
         e.preventDefault();
         setErrorMessage('');
-        const response = await fetch("http://localhost:3030/api/User/signup", {
-            method: "POST",
-            body: JSON.stringify(user),
-            headers: {
-                "Content-Type" : "application/json"
-            }
-        })
-        const json = await response.json()
-    
+
+        // Validate inputs before making the request
         if (!validateIDNumber(idNumber)) {
             return setErrorMessage('Invalid ID Number');
         }
@@ -40,18 +28,34 @@ const Register = () => {
         if (!validatePassword(password)) {
             return setErrorMessage('Password must be at least 8 characters with upper/lowercase letters, numbers, and special characters.');
         }
-    
-        if(!response.ok){
-            setErrorMessage(json.error);
-        }
-        else{
-            setFullName("")
-            setIdNumber("")
-            setAccountNumber("")
-            setPassword("")
-            setErrorMessage(null)
-        }
 
+        try {
+            const response = await fetch("https://localhost:3030/api/User/signup", {
+                method: "POST",
+                body: JSON.stringify(user),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include", // Include cookies if needed
+            });
+
+            // Check response status
+            if (!response.ok) {
+                const json = await response.json();
+                setErrorMessage(json.error || 'An error occurred. Please try again.');
+                return;
+            }
+
+            // Clear fields after successful registration
+            setFullName("");
+            setIdNumber("");
+            setAccountNumber("");
+            setPassword("");
+            setErrorMessage(null);
+        } catch (error) {
+            console.error("Error during fetch:", error);
+            setErrorMessage("An error occurred while registering. Please try again later.");
+        }
     };
 
     const togglePasswordVisibility = () => {
@@ -85,7 +89,6 @@ const Register = () => {
                         onChange={(e) => setAccountNumber(e.target.value)}
                         required
                     />
-
                     <div className="password-container">
                         <input
                             type={passwordVisible ? 'text' : 'password'}
@@ -101,7 +104,6 @@ const Register = () => {
                             <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />
                         </span>
                     </div>
-
                     <button type="submit">Register</button>
                 </form>
                 <a href="/login" className="small-text">Already have an account? Log in</a>
