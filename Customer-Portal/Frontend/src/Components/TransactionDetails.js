@@ -7,4 +7,5 @@ const TransactionDetails = ({ pay }) => {
         </tr>
     );
 };
+
 export default TransactionDetails;
