@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import '../Styles/Login.css';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../Services/authContext'; // Import useAuth
+import { useAuth } from '../Services/authContext';
 
 const Login = () => {
     const [fullName, setFullName] = useState('');
@@ -12,7 +12,7 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
     const navigate = useNavigate();
-    const { login } = useAuth(); // Access the login function from useAuth
+    const { login } = useAuth(); 
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -42,7 +42,7 @@ const Login = () => {
       
             const data = await response.json();
             // Call login with the token
-            login(data.token); // Now login is defined
+            login(data.token); 
             navigate('/dashboard');
         } catch (error) {
             setErrorMessage("An error occurred while logging in. Please try again later.");

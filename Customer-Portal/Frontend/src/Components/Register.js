@@ -20,7 +20,6 @@ const Register = () => {
         password
     };
     
-
     const handleRegister = async (e) => {
         e.preventDefault();
         setErrorMessage('');
@@ -60,7 +59,6 @@ const Register = () => {
                 setTimeout(() => setSuccessMessage(''), 3000);
             }
 
-            // Clearing fields after successful registration
             setFullName("");
             setIdNumber("");
             setAccountNumber("");
