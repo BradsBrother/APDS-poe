@@ -14,9 +14,9 @@ const Register = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
 
     const user = {
-        name: fullName, // Change this
-        id_no: idNumber, // Change this
-        acc_no: accountNumber, // Change this
+        name: fullName, 
+        id_no: idNumber, 
+        acc_no: accountNumber, 
         password
     };
     
@@ -44,7 +44,7 @@ const Register = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                credentials: "include", // Include cookies if needed
+                credentials: "include", 
             });
 
             // Check response status
@@ -60,7 +60,7 @@ const Register = () => {
                 setTimeout(() => setSuccessMessage(''), 3000);
             }
 
-            // Clear fields after successful registration
+            // Clearing fields after successful registration
             setFullName("");
             setIdNumber("");
             setAccountNumber("");
