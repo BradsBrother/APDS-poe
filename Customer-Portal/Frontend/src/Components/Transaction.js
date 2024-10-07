@@ -12,6 +12,7 @@ const Payment = () => {
 
     if (!validateAmount(amount) || !validateCurrency(currency)) {
       alert('Invalid input. Please check your entries.');
+      
       return;
     }
 
@@ -27,8 +28,9 @@ const Payment = () => {
 
       alert('Payment successful');
       console.log('Payment successful', response.data);
+     
     } catch (error) {
-      console.error('Payment error', error.response?.data?.error);
+      console.error("Payment error", error.response?.data?.error);
     }
   };
 
@@ -44,13 +46,17 @@ const Payment = () => {
             onChange={(e) => setAmount(e.target.value)}
             required
           />
-          <input
-            type="text"
-            placeholder="Currency"
+          <select
             value={currency}
             onChange={(e) => setCurrency(e.target.value)}
             required
-          />
+          >
+            <option value="">Select Currency</option>
+            <option value="USD">USD - US Dollar</option>
+            <option value="EUR">EUR - Euro</option>
+            <option value="GBP">GBP - British Pound</option>
+            <option value="ZAR">ZAR - South African Rand</option>
+          </select>
           <button type="submit">Submit Payment</button>
         </form>
       </div>

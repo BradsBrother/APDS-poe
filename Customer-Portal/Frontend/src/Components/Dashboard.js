@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import '../Styles/Dashboard.css'; // Import the stylesheet
+import '../Styles/Dashboard.css'; 
 import TransactionDetails from './TransactionDetails';
 import { useLocation } from 'react-router-dom';
 
 const Dashboard = () => {
     const [transactions, setTransactions] = useState([]);
     const location = useLocation();
-    const user = location.state?.user || {}; // Fallback to an empty object
+    const user = location.state?.user || {}; 
 
-    console.log('Location State:', location.state); // Debugging line
-    console.log('User Data:', user); // Debugging line
+    console.log('Location State:', location.state); 
+    console.log('User Data:', user); 
 
     useEffect(() => {
         const fetchTransactions = async () => {
@@ -50,8 +50,8 @@ const Dashboard = () => {
                 <div className="section">
                     <div className="dashboard-card">
                         <h2>Account Overview</h2>
-                        <p>Balance: R5,000,000,000,000,000,000</p>
-                        <p>Last Payment: R250 on 2024-09-02</p>
+                        <p>Amount Spent: R5000</p>
+                        <p>Last Payment: *</p>
                     </div>
                 </div>
 
