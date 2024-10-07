@@ -40,4 +40,23 @@ const paymentSchema = new Schema({
             return payment
     }
 
+    paymentSchema.statics.getUserPayments = async function(acc_no) {
+        if(!acc_no){
+            throw Error("Account number required")
+        }        
+
+        const existingUser = await userSchema.findOne({acc_no})
+            if (!existingUser){
+                throw Error('Account number is incorrect or does not exist')
+            }
+
+        const lstPayments = await this.find({acc_no})
+
+        if(lstPayments.length === 0){
+            throw Error("There are no payments for this account")
+        }
+
+        return lstPayments
+    }
+
 module.exports = mongoose.model('Payment', paymentSchema)
