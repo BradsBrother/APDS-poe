@@ -20,7 +20,7 @@ const loginUser = async(req, res) =>{
         res.cookie("token", token,{
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            maxAge: 3*24*60*60*1000,
+            maxAge: 15*60*1000,
             sameSite: "strict",
         })
 
@@ -28,7 +28,6 @@ const loginUser = async(req, res) =>{
     }catch(error){
         res.status(400).json({error: error.message})
     }
-    
 }
 
 const signupUser = async(req, res) => {

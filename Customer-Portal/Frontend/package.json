@@ -1,8 +1,11 @@
 {
-  "proxy": "https://localhost:3030",
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "options":{
+    "proxy": "https://localhost:3030",
+    "allowedHosts": "all"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",

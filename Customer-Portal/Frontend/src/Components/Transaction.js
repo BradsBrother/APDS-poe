@@ -1,23 +1,30 @@
 import React, { useState } from 'react';
 import { makePayment } from '../Services/paymentService';
-import { validateAccNo, validateAmount, validateCurrency } from '../Utils/Validations';
+import { validateAmount, validateCurrency } from '../Utils/Validations';
 import '../Styles/Transaction.css';
 
 const Payment = () => {
-  const [acc_no, setAccNo] = useState('');
   const [amount, setAmount] = useState('');
   const [currency, setCurrency] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateAccNo(acc_no) || !validateAmount(amount) || !validateCurrency(currency)) {
+    if (!validateAmount(amount) || !validateCurrency(currency)) {
       alert('Invalid input. Please check your entries.');
       return;
     }
 
     try {
-      const response = await makePayment({ acc_no, amount, currency });
+      const response = await fetch("https://localhost:3030/api/Payment/Pay", {
+        method: "POST",
+        body: JSON.stringify({amount: amount, currency: currency}),
+        headers: {
+            "Content-Type": "application/json",
+        },
+        credentials: "include", // Include cookies if needed
+      });
+
       alert('Payment successful');
       console.log('Payment successful', response.data);
     } catch (error) {
@@ -30,13 +37,6 @@ const Payment = () => {
       <div className="transaction-box">
         <h1>Payment</h1>
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Account Number"
-            value={acc_no}
-            onChange={(e) => setAccNo(e.target.value)}
-            required
-          />
           <input
             type="number"
             placeholder="Amount"
