@@ -11,7 +11,6 @@ const Payment = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate inputs
     if (!validateAccNo(acc_no) || !validateAmount(amount) || !validateCurrency(currency)) {
       alert('Invalid input. Please check your entries.');
       return;
@@ -19,7 +18,6 @@ const Payment = () => {
 
     try {
       const response = await makePayment({ acc_no, amount, currency });
-      // Handle successful payment
       alert('Payment successful');
       console.log('Payment successful', response.data);
     } catch (error) {
