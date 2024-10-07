@@ -1,9 +1,10 @@
-const express = require("express");
-const router = express.Router();
-const { makePayment, getUserPayments } = require("../Controllers/paymentController");
+const express = require("express")
+const router = express.Router()
+const {makePayment, getUserPayments, } = require("../Controllers/paymentController")
+const requireAuth = require("../Middleware/requireAuth")
 
-// Correct route definitions
-router.post("/Pay", makePayment);
-router.get("/getUserPayments", getUserPayments); // Ensure this matches the frontend request
+router.post("/Pay", requireAuth, makePayment)
+
+router.get("/Payments", requireAuth, getUserPayments)
 
 module.exports = router;
