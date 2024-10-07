@@ -1,8 +1,13 @@
 const userModel = require("../Models/userModel")
 const jwt = require("jsonwebtoken")
 
-const createToken = (_id) => {
-    jwt.sign({_id}, process.env.SECRET_KEY,{expiresIn: "3d"})
+const createToken = (user) => {
+    const payload = {
+        name: user.name,
+        acc_no: user.acc_no,
+    }
+
+    return jwt.sign(payload, process.env.SECRET_KEY,{expiresIn: "15m"})
 }
 
 const loginUser = async(req, res) =>{
@@ -10,7 +15,7 @@ const loginUser = async(req, res) =>{
 
     try{
         const user = await userModel.loginUser(name, acc_no, password)
-        const token = createToken(user._id)
+        const token = createToken(user)
 
         res.cookie("token", token,{
             httpOnly: true,
@@ -31,7 +36,7 @@ const signupUser = async(req, res) => {
 
     try{
         const user = await userModel.signupUser(name, id_no, acc_no, password)
-        const token = createToken(user._id)
+        const token = createToken(user)
 
         res.cookie("token", token,{
             httpOnly: true,
@@ -46,16 +51,16 @@ const signupUser = async(req, res) => {
     }
 }
 
-const logoutUser = async (res, req) => {
-    res.cookie("token", token,{
+const logoutUser = (req, res) => {
+    res.cookie("token", "", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        expires: new Date(0),
-        //sameSite: "strict",
-    })
+        expires: new Date(0),  // This clears the cookie
+        sameSite: "strict",
+    });
 
-    res.status(200).json({message: "Logged out successfully"})
-}
+    res.status(200).json({ message: "Logged out successfully" });
+};
 
 module.exports = {
     loginUser,

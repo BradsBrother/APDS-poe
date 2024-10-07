@@ -10,11 +10,13 @@ const userSchema = new Schema({
     },
     id_no: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     acc_no: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
