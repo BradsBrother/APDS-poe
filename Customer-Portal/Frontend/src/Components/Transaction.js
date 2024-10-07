@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { makePayment } from '../Services/paymentService';
 import { validateAmount, validateCurrency } from '../Utils/Validations';
 import '../Styles/Transaction.css';
 

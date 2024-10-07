@@ -1,59 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import '../Styles/Dashboard.css'; 
 import TransactionDetails from './TransactionDetails';
-import { useLocation } from 'react-router-dom';
+
 
 const Dashboard = () => {
     const [transactions, setTransactions] = useState([]);
-    const location = useLocation();
-    const user = location.state?.user || {}; 
-
-    console.log('Location State:', location.state); 
-    console.log('User Data:', user); 
 
     useEffect(() => {
         const fetchTransactions = async () => {
-            try{
-            const response = await fetch("https://localhost:3030/api/Payment/Payments", {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include", // Include cookies if needed
-            });
-        
-            // Check if the response is ok (status code 200-299)
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+            try {
+                const response = await fetch("https://localhost:3030/api/Payment/Payments", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include", // Include cookies if needed
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
 
-        // Parse the JSON response
-        const data = await response.json();
+                const data = await response.json();
+                
+                // Log the response to understand its structure
+                console.log(data);
 
-        // Log the data in a readable format
-        console.log(data);
-        
-        // If you want to format it further (for example, as a pretty-printed JSON string)
-        console.log(JSON.stringify(data, null, 2)); // Indent with 2 spaces
-    } catch (error) {
-        console.error("Error fetching transactions:", error);
-    }
+                // Access the lstPayments array from the response object
+                if (data.lstPayments && Array.isArray(data.lstPayments)) {
+                    setTransactions(data.lstPayments);
+
+                   
+                } else {
+                    console.error('lstPayments is not an array:', data);
+                }
+            } catch (error) {
+                console.error("Error fetching transactions:", error);
+            }
         };
-        fetchTransactions();
-    }, [user]);
+        
+        fetchTransactions(); // Fetch only once on mount
+    }, []); // Empty dependency array ensures it only runs once
 
     return (
         <div className="dashboard-container">
             <h1 className="dashboard-header">Welcome to Your Dashboard</h1>
 
             <div className="dashboard-section">
-                <div className="section">
-                    <div className="dashboard-card">
-                        <h2>Account Overview</h2>
-                        <p>Amount Spent: R5000</p>
-                        <p>Last Payment: *</p>
-                    </div>
-                </div>
+                
 
                 <div className="section">
                     <div className="dashboard-card">
