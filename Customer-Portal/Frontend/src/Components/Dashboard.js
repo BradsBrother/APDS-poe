@@ -13,23 +13,31 @@ const Dashboard = () => {
 
     useEffect(() => {
         const fetchTransactions = async () => {
-            if (user?.acc_no) {
-                console.log(`Fetching transactions for account number: ${user.acc_no}`); // Debugging line
-                const response = await fetch(`/api/Payment/getUserPayments?acc_no=${user.acc_no}`);
-                
-                console.log('Fetch Response Status:', response.status); // Debugging line
-                
-                const json = await response.json();
-                console.log('Response:', json); // Debugging line
-                
-                if (response.ok) {
-                    setTransactions(json);
-                } else {
-                    console.log('Error fetching transactions:', json);
-                }
-            } else {
-                console.log('User account number is missing.'); // Debugging line
-            }
+            try{
+            const response = await fetch("https://localhost:3030/api/Payment/Payments", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include", // Include cookies if needed
+            });
+        
+            // Check if the response is ok (status code 200-299)
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        // Parse the JSON response
+        const data = await response.json();
+
+        // Log the data in a readable format
+        console.log(data);
+        
+        // If you want to format it further (for example, as a pretty-printed JSON string)
+        console.log(JSON.stringify(data, null, 2)); // Indent with 2 spaces
+    } catch (error) {
+        console.error("Error fetching transactions:", error);
+    }
         };
         fetchTransactions();
     }, [user]);
