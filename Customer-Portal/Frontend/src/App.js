@@ -1,27 +1,41 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import Navbar from './Components/Navbar'
-import Dashboard from './Components/Dashboard'
-import Login from './Components/Login'
-import Register from './Components/Register'
-import Transaction from './Components/Transaction'
-import { AuthProvider } from './Services/authContext'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './Components/Navbar';
+import Dashboard from './Components/Dashboard';
+import Login from './Components/Login';
+import Register from './Components/Register';
+import Transaction from './Components/Transaction';
+import { AuthProvider } from './Services/authContext';
 import './App.css';
+import ProtectedRoute from './Components/protectedRoute';
 
 function App() {
   return (
     <div className="App">
       <AuthProvider>
-      <BrowserRouter>
-      <Navbar />
-      <header>
-      <Routes>
-        <Route path='/' element={<Dashboard />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/Register' element={<Register />} />
-        <Route path='/Transaction' element={<Transaction />} />
-      </Routes>
-      </header>
-      </BrowserRouter>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route 
+            path="/dashboard" 
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/transaction" 
+                element={
+                  <ProtectedRoute>
+                    <Transaction />
+                  </ProtectedRoute>
+                } 
+              />
+            </Routes>
+          
+        </Router>
       </AuthProvider>
     </div>
   );

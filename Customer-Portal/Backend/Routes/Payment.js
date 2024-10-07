@@ -7,4 +7,4 @@ router.post("/Pay", requireAuth, makePayment)
 
 router.get("/Payments", requireAuth, getUserPayments)
 
-module.exports = router
+module.exports = router;

@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 90vh;
+    height: 85vh;
     padding: 20px;
 }
 
@@ -67,6 +67,12 @@
 /* Error message styling */
 .error-message {
     color: red;
+    margin-top: 5px;
+    font-size: 14px;
+    text-align: center;
+}
+.success-message{
+    color: blue;
     margin-top: 5px;
     font-size: 14px;
     text-align: center;
