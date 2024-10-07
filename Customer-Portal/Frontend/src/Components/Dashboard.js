@@ -5,18 +5,16 @@ const Dashboard = () => {
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
-        // Simulated API call to fetch transaction data
-        const fetchData = async () => {
-            // Simulate fetching transactions
-            setTransactions([
-                { id: 1, date: '2024-09-01', amount: 'R500', status: 'Completed' },
-                { id: 2, date: '2024-09-02', amount: 'R250', status: 'Pending' },
-                { id: 3, date: '2024-09-03', amount: 'R1200', status: 'Completed' },
-            ]);
-        };
+        const fetchTransactions = async () => {
+            const response = await fetch('api/Payment/')
+            const json = await response.json()
 
-        fetchData();
-    }, []);
+            if(response.ok){
+                setTransactions(json)
+            }
+        }
+        fetchTransactions()
+    }, [])
 
     return (
         <div className="dashboard-container">
@@ -37,19 +35,13 @@ const Dashboard = () => {
                         <table className="transaction-table">
                             <thead>
                                 <tr>
-                                    <th>Date</th>
                                     <th>Amount</th>
-                                    <th>Status</th>
+                                    <th>Currency</th>
+                                    <th>Account Number</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {transactions.map((transaction) => (
-                                    <tr key={transaction.id}>
-                                        <td>{transaction.date}</td>
-                                        <td>{transaction.amount}</td>
-                                        <td>{transaction.status}</td>
-                                    </tr>
-                                ))}
+                                
                             </tbody>
                         </table>
                     </div>
