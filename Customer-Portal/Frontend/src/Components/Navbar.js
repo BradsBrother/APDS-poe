@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../Services/authContext'; // Ensure this path is correct
+import { useAuth } from '../Services/authContext'; 
 
 import '../Styles/Navbar.css';
 
