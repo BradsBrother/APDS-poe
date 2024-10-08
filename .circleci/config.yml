@@ -24,7 +24,7 @@ jobs:
       - checkout
       - run:
           name: Install backend dependencies
-          command: cd Customer-Portal/Backend && npm install
+          command: cd Customer-Portal/Backend && npm install  # Ensure correct directory for backend install
       - run:
           name: Start backend (Node.js/Express) server
           command: cd Customer-Portal/Backend && node server.js  # Use node instead of nodemon
