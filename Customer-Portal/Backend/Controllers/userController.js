@@ -56,8 +56,10 @@ const logoutUser = (req, res) => {
         secure: process.env.NODE_ENV === "production",
         expires: new Date(0),  // This clears the cookie
         sameSite: "strict",
+        path: "/",
     });
 
+    res.clearCookie("token");
     res.status(200).json({ message: "Logged out successfully" });
 };
 

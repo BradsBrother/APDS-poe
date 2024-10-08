@@ -11,10 +11,13 @@ const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const logoutUser = async () => {
+    const csrfToken = await getCsrfToken()
+
     const response = await fetch("https://localhost:3030/api/User/logout", {
       method: "POST",
       headers: {
           "Content-Type": "application/json",
+          'CSRF-Token': csrfToken,
       },
       credentials: "include",
     });
@@ -53,8 +56,8 @@ const Navbar = () => {
   
   // Check auth status on component mount
   useEffect(() => {
-    const fetchAuthStatus = () => {
-        const authStatus = checkAuthStatus();
+    const fetchAuthStatus = async () => {
+        const authStatus = await checkAuthStatus();
         setIsAuthenticated(authStatus);
     };
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../Styles/Dashboard.css'; 
 import TransactionDetails from './TransactionDetails';
+import { getCsrfToken } from '../Services/csrfService';
 
 const Dashboard = () => {
     const [transactions, setTransactions] = useState([]);
@@ -8,10 +9,12 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchTransactions = async () => {
             try {
+                const csrfToken = await getCsrfToken()
                 const response = await fetch("https://localhost:3030/api/Payment/Payments", {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
+                        'CSRF-Token': csrfToken,
                     },
                     credentials: "include", 
                 });
