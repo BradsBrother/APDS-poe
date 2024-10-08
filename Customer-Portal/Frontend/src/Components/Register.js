@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { validateIDNumber, validateAccountNumber, validatePassword } from '../Utils/Validations';
 import '../Styles/Register.css';
+import { getCsrfToken } from '../Services/csrfService';
 
 const Register = () => {
     const [fullName, setFullName] = useState('');
@@ -37,11 +38,13 @@ const Register = () => {
         }
 
         try {
+            const csrfToken = await getCsrfToken()
             const response = await fetch("https://localhost:3030/api/User/signup", {
                 method: "POST",
                 body: JSON.stringify(user),
                 headers: {
                     "Content-Type": "application/json",
+                    'CSRF-Token': csrfToken,
                 },
                 credentials: "include", 
             });

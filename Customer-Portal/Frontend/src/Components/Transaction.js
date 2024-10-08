@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { validateAmount, validateCurrency } from '../Utils/Validations';
 import '../Styles/Transaction.css';
+import { getCsrfToken } from '../Services/csrfService';
 
 const Payment = () => {
   const [amount, setAmount] = useState('');
@@ -16,11 +17,14 @@ const Payment = () => {
     }
 
     try {
+      const csrfToken = await getCsrfToken()
+
       const response = await fetch("https://localhost:3030/api/Payment/Pay", {
         method: "POST",
         body: JSON.stringify({amount: amount, currency: currency}),
         headers: {
             "Content-Type": "application/json",
+            'CSRF-Token': csrfToken,
         },
         credentials: "include", // Include cookies if needed
       });
