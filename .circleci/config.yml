@@ -16,7 +16,7 @@ jobs:
           command: cd Customer-Portal/Frontend && npm install
       - run:
           name: Build React app
-          command: npm start
+          command: npm run build
       - persist_to_workspace:
           root: ~/repo
           paths:
