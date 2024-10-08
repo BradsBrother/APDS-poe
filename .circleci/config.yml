@@ -2,8 +2,8 @@ version: 2.1
 
 executors:
   node-executor:
-    machine:
-      image: ubuntu-2004:202101-01  # Use an Ubuntu VM instead of Docker
+    docker:
+      - image: circleci/node:14 
     working_directory: ~/repo
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
           command: cd Customer-Portal/Frontend && npm install
       - run:
           name: Start React app in development mode
-          command: cd Customer-Portal/Frontend && HTTPS=true npm start
+          command: cd Customer-Portal/Frontend && HTTPS=true npm start  # Correct directory for npm start
 
   backend-deploy:
     executor: node-executor
@@ -24,10 +24,10 @@ jobs:
       - checkout
       - run:
           name: Install backend dependencies
-          command: cd Customer-Portal/Backend && npm install
+          command: cd Customer-Portal/Backend && npm install  # Ensure correct directory for backend install
       - run:
           name: Start backend (Node.js/Express) server
-          command: cd Customer-Portal/Backend && npm run dev
+          command: cd Customer-Portal/Backend && npm run dev  # Ensure correct directory for backend start
 
 workflows:
   version: 2
