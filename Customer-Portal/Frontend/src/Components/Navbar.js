@@ -79,7 +79,7 @@ const Navbar = () => {
           <>
             <button className="navbar-profile-button" onClick={logoutUser}>
               <img src="https://via.placeholder.com/30" alt="User Profile" />
-              Logged In
+              Log Out
             </button>
             <div className="navbar-profile-dropdown">
               <Link to="/" onClick={logoutUser}>Logout</Link>
