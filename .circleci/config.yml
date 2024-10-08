@@ -15,12 +15,8 @@ jobs:
           name: Install frontend dependencies
           command: cd Customer-Portal/Frontend && npm install
       - run:
-          name: Build React app
-          command: npm run build
-      - persist_to_workspace:
-          root: ~/repo
-          paths:
-            - client/build
+          name: Start React app in development mode
+          command: npm start
 
   # Job for backend (Node.js/Express)
   backend-deploy:
