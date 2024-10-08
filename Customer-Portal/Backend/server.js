@@ -11,10 +11,11 @@ const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const cors = require('cors');
-const csrf = require('csurf')
+const csurf = require('csurf')
 
 // Initialize the Express app
 const app = express();
+const csrfProtection = csurf({ cookie: true });
 
 // Path for SSL certificate and key
 const sslKeyPath = path.resolve("./ssl/server.key");
@@ -29,6 +30,11 @@ try {
 } catch (error) {
   console.error("Error reading SSL files:", error);
  
+}
+
+const options = {
+  key: sslKey,
+  cert: sslCert,
 }
 
 // Middleware
@@ -79,24 +85,25 @@ mongoose
   .catch((error) => {
     console.error("MongoDB connection error:", error);
   });
-  app.get("/api/csrf-token", csrfProtection, (req, res) => {
-    res.cookie('XSRF-TOKEN', req.csrfToken()); // Send CSRF token as a cookie
+
+
+  app.get('/csrf-token', csrfProtection, (req, res) => {
     res.json({ csrfToken: req.csrfToken() });
   });
   
-
   app.use(csrfProtection); 
+
+  // Error handling for CSRF
+app.use((err, req, res, next) => {
+  if (err.code === 'EBADCSRFTOKEN') {
+    // Token missing or invalid
+    res.status(403).json({ error: 'Invalid CSRF token' });
+  } else {
+    next(err);
+  }
+});
   
   // API routes
   app.use("/api/User", userRoutes);
   app.use("/api/Payment", paymentRoutes);
-  
-  
-  app.use((err, req, res, next) => {
-    if (err.code === 'EBADCSRFTOKEN') {
-      res.status(403).json({ message: 'Invalid CSRF token' });
-    } else {
-      next(err);
-    }
-  });
 

@@ -1,11 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../Services/authContext'; 
-
 import '../Styles/Navbar.css';
 
+const logoutUser = async () => {
+  const response = await fetch("https://localhost:3030/api/User/logout", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
+
+  return response
+}
+
 const Navbar = () => {
-  const { isAuthenticated, logout } = useAuth();
+  const isAuthenticated = false
   return (
     <nav className="navbar">
       <Link to="/" className="navbar-logo">BasicBank</Link>
@@ -27,12 +37,12 @@ const Navbar = () => {
       <div className="navbar-profile">
         {isAuthenticated && (
           <>
-            <button className="navbar-profile-button" onClick={logout}>
+            <button className="navbar-profile-button" onClick={logoutUser}>
               <img src="https://via.placeholder.com/30" alt="User Profile" />
               Logged Out
             </button>
             <div className="navbar-profile-dropdown">
-              <Link to="/" onClick={logout}>Logout</Link>
+              <Link to="/" onClick={logoutUser}>Logout</Link>
             </div>
           </>
         )}
