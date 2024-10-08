@@ -16,18 +16,18 @@ jobs:
           command: cd Customer-Portal/Frontend && npm install
       - run:
           name: Start React app in development mode
-          command: cd Customer-Portal/Frontend && HTTPS=true npm start  # Correct directory for npm start
+          command: cd Customer-Portal/Frontend && HTTPS=true npm start
 
-  backend-deploy:  # Corrected indentation here
+  backend-deploy:
     executor: node-executor
     steps:
       - checkout
       - run:
           name: Install backend dependencies
-          command: cd Customer-Portal/Backend && npm install  # Ensure correct directory for backend install
+          command: cd Customer-Portal/Backend && npm install
       - run:
           name: Start backend (Node.js/Express) server
-          command: cd Customer-Portal/Backend && node server.js  # Use node instead of nodemon
+          command: cd Customer-Portal/Backend && node server.js
 
 workflows:
   version: 2
