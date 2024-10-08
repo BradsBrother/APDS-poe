@@ -52,6 +52,7 @@ const Payment = () => {
           <select
             value={currency}
             onChange={(e) => setCurrency(e.target.value)}
+            className="Dropdown-Box"
             required
           >
             <option value="">Select Currency</option>
