@@ -13,7 +13,7 @@ jobs:
       - checkout
       - run:
           name: Install frontend dependencies
-          command: cd Frontend && npm install
+          command: cd Customer-Portal/Frontend && npm install
       - run:
           name: Build React app
           command: npm start
