@@ -40,7 +40,7 @@ const Login = () => {
             // Check if the response is not OK (e.g., status 400/500)
             if (!response.ok) {
                 // Try to extract the error from response JSON if possible
-                const json = await response.json();
+                
                 setErrorMessage("An error occurred. Please try again.");
                 return;  // Stop further execution
             }
