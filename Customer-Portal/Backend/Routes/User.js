@@ -11,4 +11,8 @@ router.post("/signup", signupUser)
 
 router.post("/logout", requireAuth, logoutUser)
 
+router.get("/auth-status", requireAuth, (req, res) => {
+    res.status(200).json({ isAuthenticated: true, user: req.user });
+})
+
 module.exports = router;

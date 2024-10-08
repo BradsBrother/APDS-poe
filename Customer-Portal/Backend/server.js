@@ -94,14 +94,14 @@ mongoose
   app.use(csrfProtection); 
 
   // Error handling for CSRF
-app.use((err, req, res, next) => {
-  if (err.code === 'EBADCSRFTOKEN') {
-    // Token missing or invalid
-    res.status(403).json({ error: 'Invalid CSRF token' });
-  } else {
-    next(err);
-  }
-});
+  app.use((err, req, res, next) => {
+    if (err.code === 'EBADCSRFTOKEN') {
+      // Token missing or invalid
+      res.status(403).json({ error: 'Invalid CSRF token' });
+    } else {
+      next(err);
+    }
+  });
   
   // API routes
   app.use("/api/User", userRoutes);
