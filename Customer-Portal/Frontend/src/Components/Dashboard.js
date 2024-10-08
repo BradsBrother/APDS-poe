@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import '../Styles/Dashboard.css'; 
 import TransactionDetails from './TransactionDetails';
 
-
 const Dashboard = () => {
     const [transactions, setTransactions] = useState([]);
 

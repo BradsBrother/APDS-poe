@@ -24,7 +24,7 @@ const loginUser = async(req, res) =>{
             sameSite: "strict",
         })
 
-        res.status(200).json({name, token})
+        res.status(200).json({message: "Success"})
     }catch(error){
         res.status(400).json({error: error.message})
     }
