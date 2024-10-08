@@ -11,11 +11,10 @@ const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const cors = require('cors');
-const csurf = require('csurf')
+const {requireCsrf, csrfProtection} = require("./Middleware/requireCSRF")
 
 // Initialize the Express app
 const app = express();
-const csrfProtection = csurf({ cookie: true });
 
 // Path for SSL certificate and key
 const sslKeyPath = path.resolve("./ssl/server.key");
@@ -91,7 +90,7 @@ mongoose
     res.json({ csrfToken: req.csrfToken() });
   });
   
-  app.use(csrfProtection); 
+  app.use(requireCsrf); 
 
   // Error handling for CSRF
   app.use((err, req, res, next) => {
