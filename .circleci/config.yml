@@ -23,8 +23,14 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Remove existing node_modules
+          command: cd Customer-Portal/Backend && rm -rf node_modules
+      - run:
           name: Install backend dependencies
           command: cd Customer-Portal/Backend && npm install
+      - run:
+          name: Install compatible bcrypt
+          command: cd Customer-Portal/Backend && npm install bcrypt@latest
       - run:
           name: Start backend (Node.js/Express) server
           command: cd Customer-Portal/Backend && node server.js
