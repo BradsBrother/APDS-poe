@@ -11,6 +11,7 @@ const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const cors = require('cors');
+const csrf = require('csurf')
 
 // Initialize the Express app
 const app = express();
@@ -27,23 +28,18 @@ try {
   sslCert = fs.readFileSync(sslCertPath);
 } catch (error) {
   console.error("Error reading SSL files:", error);
-  process.exit(1); // Exit the application if there’s an error
+ 
 }
 
-const options = {
-  key: sslKey,
-  cert: sslCert,
-};
-
 // Middleware
-app.use(helmet()); // Secure HTTP headers
+app.use(helmet());
 app.use(cookieParser()); // For handling cookies
-app.use(express.json()); // Parse JSON data
+app.use(express.json()); 
 
 // Updated CORS options to allow frontend origin and credentials
 const corsOptions = {
   origin: 'https://localhost:3000', // Frontend URL
-  credentials: true, // Allow credentials (cookies)
+  credentials: true, 
 };
 app.use(cors(corsOptions));
 
@@ -56,7 +52,7 @@ app.use((req, res, next) => {
 // Rate limiting middleware for login attempts
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // Limit to 5 requests per window per IP
+  max: 5, // Limit to 5 requests 
   message: "Too many login attempts. Try again later.",
 });
 app.use("/api/login", loginLimiter);
@@ -83,7 +79,24 @@ mongoose
   .catch((error) => {
     console.error("MongoDB connection error:", error);
   });
+  app.get("/api/csrf-token", csrfProtection, (req, res) => {
+    res.cookie('XSRF-TOKEN', req.csrfToken()); // Send CSRF token as a cookie
+    res.json({ csrfToken: req.csrfToken() });
+  });
+  
 
-// API routes
-app.use("/api/User", userRoutes);
-app.use("/api/Payment", paymentRoutes);
+  app.use(csrfProtection); 
+  
+  // API routes
+  app.use("/api/User", userRoutes);
+  app.use("/api/Payment", paymentRoutes);
+  
+  
+  app.use((err, req, res, next) => {
+    if (err.code === 'EBADCSRFTOKEN') {
+      res.status(403).json({ message: 'Invalid CSRF token' });
+    } else {
+      next(err);
+    }
+  });
+
