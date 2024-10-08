@@ -16,7 +16,7 @@ jobs:
           command: cd Customer-Portal/Frontend && npm install
       - run:
           name: Start React app in development mode
-          command: cd Customer-Portal/Frontend && HTTPS=true npm start
+          command: cd Customer-Portal/Frontend && HTTPS=true npm start  # Use Unix-style command
 
   backend-deploy:
     executor: node-executor
