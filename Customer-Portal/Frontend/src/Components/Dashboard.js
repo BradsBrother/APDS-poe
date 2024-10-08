@@ -14,7 +14,7 @@ const Dashboard = () => {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    credentials: "include", // Include cookies if needed
+                    credentials: "include", 
                 });
                 
                 if (!response.ok) {
@@ -22,11 +22,8 @@ const Dashboard = () => {
                 }
 
                 const data = await response.json();
-                
-                // Log the response to understand its structure
-                console.log(data);
 
-                // Access the lstPayments array from the response object
+                // Access the lstPayments array 
                 if (data.lstPayments && Array.isArray(data.lstPayments)) {
                     setTransactions(data.lstPayments);
 
@@ -39,8 +36,8 @@ const Dashboard = () => {
             }
         };
         
-        fetchTransactions(); // Fetch only once on mount
-    }, []); // Empty dependency array ensures it only runs once
+        fetchTransactions(); 
+    }, []); 
 
     return (
         <div className="dashboard-container">
