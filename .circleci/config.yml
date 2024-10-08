@@ -3,7 +3,7 @@ version: 2.1
 executors:
   node-executor:
     docker:
-      - image: circleci/node:14 
+      - image: circleci/node:16
     working_directory: ~/repo
 
 jobs:
@@ -18,13 +18,13 @@ jobs:
           name: Start React app in development mode
           command: cd Customer-Portal/Frontend && HTTPS=true npm start  # Correct directory for npm start
 
-  backend-deploy:
+ backend-deploy:
     executor: node-executor
     steps:
       - checkout
       - run:
           name: Install backend dependencies
-          command: cd Customer-Portal/Backend && npm install  # Ensure correct directory for backend install
+          command: cd Customer-Portal/Backend && npm install
       - run:
           name: Start backend (Node.js/Express) server
           command: cd Customer-Portal/Backend && node server.js  # Use node instead of nodemon
