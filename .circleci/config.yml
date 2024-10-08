@@ -16,7 +16,7 @@ jobs:
           command: cd Customer-Portal/Frontend && npm install
       - run:
           name: Start React app in development mode
-          command: npm start
+          command: command: HTTPS=true npm start
 
   # Job for backend (Node.js/Express)
   backend-deploy:
