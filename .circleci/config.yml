@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Start React app in development mode
           command: |
-            cd Customer-Portal/Frontend && HTTPS=true npm start
+            cd Customer-Portal/Frontend && HTTPS=true nohup npm start &
 
   backend-deploy:
     executor: node-executor
