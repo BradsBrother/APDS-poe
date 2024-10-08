@@ -18,7 +18,7 @@ jobs:
           name: Start React app in development mode
           command: cd Customer-Portal/Frontend && HTTPS=true npm start  # Correct directory for npm start
 
- backend-deploy:
+  backend-deploy:  # Corrected indentation here
     executor: node-executor
     steps:
       - checkout
