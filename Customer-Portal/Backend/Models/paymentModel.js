@@ -18,6 +18,14 @@ const paymentSchema = new Schema({
     currency: {
         type: String,
         required: true
+    },
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    submittedToSwift: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -58,6 +66,18 @@ const paymentSchema = new Schema({
         // Return the payments, even if the list is empty (handle gracefully)
         return lstPayments.length > 0 ? lstPayments : [];
     };
+
+    paymentSchema.statics.getUnverifiedTransactions = async function() {
+        return await this.find({ isVerified: false });
+    };
+    
+    paymentSchema.statics.verifyAndSubmitTransactions = async function(transactionIds) {
+        return await this.updateMany(
+            { _id: { $in: transactionIds } },
+            { $set: { isVerified: true, submittedToSwift: true } }
+        );
+    };
+    
     
 
 module.exports = mongoose.model('Payment', paymentSchema)
