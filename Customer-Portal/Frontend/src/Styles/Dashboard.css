@@ -48,3 +48,16 @@
     background-color: #003087;
     color: white;
 }
+.submit-to-swift-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.submit-to-swift-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}

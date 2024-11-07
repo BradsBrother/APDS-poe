@@ -6,6 +6,7 @@ import Register from './Components/Register';
 import Transaction from './Components/Transaction';
 import './App.css';
 import ProtectedRoute from './Components/protectedRoute';
+import AdminDashboard from './Components/AdminDashboard';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/Admin" element={<AdminDashboard />} />
           <Route 
             path="/dashboard" 
             element={
