@@ -39,10 +39,10 @@ const Login = () => {
         
             // Check if the response is not OK (e.g., status 400/500)
             if (!response.ok) {
-                // Try to extract the error from response JSON if possible
-                
-                setErrorMessage("An error occurred. Please try again.");
-                return;  // Stop further execution
+                // Try to extract the error from response JSON
+
+                setErrorMessage("Incorrect login details");
+                return; 
             }
             
             // On successful response, navigate to dashboard

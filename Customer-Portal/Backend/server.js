@@ -60,7 +60,7 @@ const loginLimiter = rateLimit({
   max: 5, // Limit to 5 requests 
   message: "Too many login attempts. Try again later.",
 });
-app.use("/api/login", loginLimiter);
+app.use("/api/User/login", loginLimiter);
 
 // MongoDB connection
 mongoose
