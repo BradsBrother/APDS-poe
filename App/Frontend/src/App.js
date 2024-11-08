@@ -1,12 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './Components/Navbar';
-import Dashboard from './Components/Dashboard';
-import Login from './Components/Login';
-import Register from './Components/Register';
-import Transaction from './Components/Transaction';
+import Navbar from './Customer/Components/Navbar';
+import Dashboard from './Customer/Components/Dashboard';
+import UserLogin from './Customer/Components/Login';
+import Register from './Customer/Components/Register';
+import Transaction from './Customer/Components/Transaction';
 import './App.css';
-import ProtectedRoute from './Components/protectedRoute';
-import AdminDashboard from './Components/AdminDashboard';
+import ProtectedRoute from './Customer/Components/protectedRoute';
+import AdminDashboard from './Employee/Components/AdminDashboard';
+import Login from'./Employee/Components/Login';
+
 
 function App() {
   return (
@@ -14,9 +16,10 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<UserLogin />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/Admin" element={<AdminDashboard />} />
+          <Route path="/emplogin" element={<Login />} />
+          <Route path="/Employee" element={<AdminDashboard />} />
           <Route 
             path="/dashboard" 
             element={

@@ -73,6 +73,7 @@ const Navbar = () => {
           <>
             <Link to="/register">Register</Link>
             <Link to="/">Login</Link>
+            <Link to="/Employee">Employee Login</Link>
           </>
         ) : (
           <>
