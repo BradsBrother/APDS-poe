@@ -1,11 +1,11 @@
 const express = require('express');
 const requireAuth = require("../Middleware/requireAuth")
 const { loginUser, signupUser, logoutUser } = require('../Controllers/userController');
-
+const bruteforce = require('../Middleware/bruteforce');
 
 const router = express.Router()
 
-router.post("/login", loginUser)
+router.post("/login", bruteforce.prevent, loginUser)
 
 router.post("/signup", signupUser)
 
