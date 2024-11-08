@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import '../Styles/Login.css';
 import { useNavigate } from 'react-router-dom';
 import { getCsrfToken } from '../Services/csrfService';
 
-const Login = () => {
+const UserLogin = () => {
     const [fullName, setFullName] = useState('');
     const [accountNumber, setAccountNumber] = useState('');
     const [password, setPassword] = useState('');
@@ -102,4 +102,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default UserLogin;
