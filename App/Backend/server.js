@@ -121,7 +121,7 @@ mongoose
     res.json({ csrfToken: req.csrfToken() });
   });
   
-  //app.use(requireCsrf); 
+  app.use(requireCsrf); 
 
   // Error handling for CSRF
   app.use((err, req, res, next) => {
