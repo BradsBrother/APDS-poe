@@ -133,26 +133,26 @@ mongoose
     console.error("MongoDB connection error:", error);
   });
 
-app.get('/csrf-token', csrfProtection, (req, res) => {
-  res.json({ csrfToken: req.csrfToken() });
-});
+  app.get('/csrf-token', csrfProtection, (req, res) => {
+    res.json({ csrfToken: req.csrfToken() });
+  });
+  
+  app.use(requireCsrf); 
 
-app.use(requireCsrf); 
-
-// Error handling for CSRF
-app.use((err, req, res, next) => {
-  if (err.code === 'EBADCSRFTOKEN') {
-    // Token missing or invalid
-    res.status(403).json({ error: 'Invalid CSRF token' });
-  } else {
-    next(err);
-  }
-});
+  // Error handling for CSRF
+  app.use((err, req, res, next) => {
+    if (err.code === 'EBADCSRFTOKEN') {
+      // Token missing or invalid
+      res.status(403).json({ error: 'Invalid CSRF token' });
+    } else {
+      next(err);
+    }
+  });
 
   // API routes
   app.use("/api/User", userRoutes);
   app.use("/api/Payment", paymentRoutes);
-  app.use("/app/Employee", employeeRoutes)
+  app.use("/api/Employee", employeeRoutes)
 
 
 

@@ -10,6 +10,17 @@ const createToken = (employee) => {
     return jwt.sign(payload, process.env.SECRET_KEY,{expiresIn: "15m"})
 }
 
+const getEmployeePassword = async(req, res) =>{
+    const {password} = req.body
+
+    try{
+        const output = await employeeModel.getEmployeePassword(password)
+        res.status(200).json({output})
+    }catch(error){
+        res.status(400).json({error: error.message})
+    }
+}
+
 const loginEmployee = async(req, res) =>{
     const {employee_id, password} = req.body
 
@@ -45,5 +56,6 @@ const logoutEmployee = (req, res) => {
 
 module.exports = {
     loginEmployee,
-    logoutEmployee
+    logoutEmployee,
+    getEmployeePassword
 }
