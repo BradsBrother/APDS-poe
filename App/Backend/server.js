@@ -11,8 +11,13 @@ const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const cors = require('cors');
+
 const ExpressBrute = require('express-brute');
 const {requireCsrf, csrfProtection} = require("./Middleware/requireCSRF.js");
+
+
+const employeeRoutes = require("./Routes/Employee")
+
 
 // Initialize the Express app
 const app = express();
@@ -150,6 +155,11 @@ app.use((err, req, res, next) => {
   }
 });
 
-// API routes
-app.use("/api/User", userRoutes);
-app.use("/api/Payment", paymentRoutes);
+  
+  // API routes
+  app.use("/api/User", userRoutes);
+  app.use("/api/Payment", paymentRoutes);
+  app.use("/app/Employee", employeeRoutes)
+
+
+
