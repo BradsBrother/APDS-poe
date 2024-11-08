@@ -13,11 +13,11 @@ jobs:
       - checkout
       - run:
           name: Install frontend dependencies
-          command: cd Customer-Portal/Frontend && npm install
+          command: cd App/Frontend && npm install
       - run:
           name: Start React app in development mode
           command: |
-            cd Customer-Portal/Frontend && HTTPS=true nohup npm start &
+            cd App/Frontend && HTTPS=true nohup npm start &
 
   backend-deploy:
     executor: node-executor
@@ -25,16 +25,16 @@ jobs:
       - checkout
       - run:
           name: Remove existing node_modules
-          command: cd Customer-Portal/Backend && rm -rf node_modules
+          command: cd App/Backend && rm -rf node_modules
       - run:
           name: Install backend dependencies
-          command: cd Customer-Portal/Backend && npm install
+          command: cd App/Backend && npm install
       - run:
           name: Install compatible bcrypt
-          command: cd Customer-Portal/Backend && npm install bcrypt@latest
+          command: cd App/Backend && npm install bcrypt@latest
       - run:
           name: Start backend (Node.js/Express) server
-          command: cd Customer-Portal/Backend && node server.js
+          command: cd App/Backend && node server.js
 
   sonarqube:
     working_directory: ~/build
