@@ -11,7 +11,6 @@ const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const cors = require('cors');
-const ExpressBrute = require('express-brute');
 const {requireCsrf, csrfProtection} = require("./Middleware/requireCSRF.js");
 const employeeRoutes = require("./Routes/Employee")
 
@@ -95,21 +94,6 @@ const loginLimiter = rateLimit({
 });
 app.use("/api/User/login", loginLimiter);
 
-// express-brute
-const store = new ExpressBrute.MemoryStore(); 
-const bruteforce = new ExpressBrute(store, {
-  freeRetries: 5,             // 5 attempts before blocking the user
-  minWait: 5 * 60 * 1000,     // 5 minutes wait after limit has been reached
-  maxWait: 60 * 60 * 1000,    // 1-hour lock 
-  lifetime: 24 * 60 * 60,     // Track for 1 day
-});
-
-// Apply express-brute to the login route
-app.post("/api/User/login", bruteforce.prevent, (req, res) => {
-  // Your login logic here
-  res.send('Login attempted');
-});
-
 // MongoDB connection
 mongoose
   .connect(process.env.MONGO_URI)
@@ -137,7 +121,7 @@ mongoose
     res.json({ csrfToken: req.csrfToken() });
   });
   
-  app.use(requireCsrf); 
+  //app.use(requireCsrf); 
 
   // Error handling for CSRF
   app.use((err, req, res, next) => {

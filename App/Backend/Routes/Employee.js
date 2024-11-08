@@ -1,12 +1,13 @@
 const express = require('express');
 const requireAuth = require("../Middleware/requireAuth")
 const { loginEmployee, logoutEmployee, getEmployeePassword } = require('../Controllers/employeeController');
+const bruteforce = require('../Middleware/bruteforce');
 
 const router = express.Router()
 
 router.post("/password", getEmployeePassword)
 
-router.post("/login", loginEmployee)
+router.post("/login", bruteforce.prevent, loginEmployee)
 
 router.post("/logout", requireAuth, logoutEmployee)
 
