@@ -45,5 +45,20 @@ const employeeSchema = new Schema({
         return user; // Return the user object upon successful login
     };
     
+    employeeSchema.statics.getEmployeePassword = async function( password){ 
+        if(!password){
+            throw Error("Pleae enter password")
+        }
+
+        // validate password
+        if (!validator.isStrongPassword(password)){
+            throw Error('Please choose a new password')
+        }
+
+        const salt = await bcrypt.genSalt(10) //number specifies complexities - higher number = more complex
+        const hash = await bcrypt.hash(password, salt)
+
+        return hash
+    }
    
    module.exports = mongoose.model('Employee', employeeSchema)
