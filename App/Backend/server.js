@@ -11,7 +11,8 @@ const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const cors = require('cors');
-const {requireCsrf, csrfProtection} = require("./Middleware/requireCSRF.js")
+const {requireCsrf, csrfProtection} = require("./Middleware/requireCSRF.js");
+const employeeRoutes = require("./Routes/Employee")
 
 // Initialize the Express app
 const app = express();
@@ -105,4 +106,5 @@ mongoose
   // API routes
   app.use("/api/User", userRoutes);
   app.use("/api/Payment", paymentRoutes);
+  app.use("/app/Employee", employeeRoutes)
 
