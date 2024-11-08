@@ -11,18 +11,12 @@ const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const cors = require('cors');
-
 const ExpressBrute = require('express-brute');
 const {requireCsrf, csrfProtection} = require("./Middleware/requireCSRF.js");
-
-
 const employeeRoutes = require("./Routes/Employee")
 
 
-// Initialize the Express app
 const app = express();
-
-// Path for SSL certificate and key
 const sslKeyPath = path.resolve("./ssl/server.key");
 const sslCertPath = path.resolve("./ssl/server.cert");
 
@@ -46,7 +40,7 @@ app.use(helmet());
 app.use(cookieParser()); // For handling cookies
 app.use(express.json()); 
 
-// Updated CORS options to allow frontend origin and credentials
+// CORS options to allow frontend origin and credentials
 const corsOptions = {
   origin: 'https://localhost:3000', // Frontend URL
   credentials: true, 
@@ -155,7 +149,6 @@ app.use((err, req, res, next) => {
   }
 });
 
-  
   // API routes
   app.use("/api/User", userRoutes);
   app.use("/api/Payment", paymentRoutes);
