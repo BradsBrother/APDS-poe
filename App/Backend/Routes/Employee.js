@@ -1,8 +1,10 @@
 const express = require('express');
 const requireAuth = require("../Middleware/requireAuth")
-const { loginEmployee, logoutEmployee } = require('../Controllers/employeeController');
+const { loginEmployee, logoutEmployee, getEmployeePassword } = require('../Controllers/employeeController');
 
 const router = express.Router()
+
+router.post("/password", getEmployeePassword)
 
 router.post("/login", loginEmployee)
 

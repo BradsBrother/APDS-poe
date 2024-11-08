@@ -86,7 +86,6 @@ mongoose
     console.error("MongoDB connection error:", error);
   });
 
-
   app.get('/csrf-token', csrfProtection, (req, res) => {
     res.json({ csrfToken: req.csrfToken() });
   });
@@ -106,5 +105,5 @@ mongoose
   // API routes
   app.use("/api/User", userRoutes);
   app.use("/api/Payment", paymentRoutes);
-  app.use("/app/Employee", employeeRoutes)
+  app.use("/api/Employee", employeeRoutes)
 
