@@ -42,39 +42,38 @@ const Dashboard = () => {
     }, []); 
 
     return (
-        <div className="dashboard-container">
-            <h1 className="dashboard-header">Welcome to Your Dashboard</h1>
+        <div className="custom-dashboard-container">
+  <div className="custom-dashboard-header">
+    <h2>Recent Transactions</h2>
+  </div>
 
-            <div className="dashboard-section">
-                
-
-                <div className="section">
-                    <div className="dashboard-card">
-                        <h2>Recent Transactions</h2>
-                        <table className="transaction-table">
-                            <thead>
-                                <tr>
-                                    <th>Amount</th>
-                                    <th>Currency</th>
-                                    <th>Account Number</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {transactions.length > 0 ? (
+  <div className="custom-dashboard-section">
+    <div className="custom-section">
+      <table className="custom-transaction-table">
+        <thead>
+          <tr>
+          <th>Currency</th>
+            <th>Amount</th>
+            
+            <th>Account Number</th>
+          </tr>
+        </thead>
+        <tbody>
+        {transactions.length > 0 ? (
                                 transactions.map((pay, index) => (
                                     <TransactionDetails key={pay._id || index} pay={pay} />
                                 ))
                             ) : (
-                                <tr>
-                                    <td colSpan="3">No transactions available.</td>
-                                </tr>
-                            )}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <tr>
+              <td colSpan="3">No transactions available.</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
     );
 };
 

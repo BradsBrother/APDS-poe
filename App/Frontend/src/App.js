@@ -8,6 +8,7 @@ import './App.css';
 import ProtectedRoute from './Customer/Components/protectedRoute';
 import AdminDashboard from './Employee/Components/AdminDashboard';
 import Login from'./Employee/Components/Login';
+import AdminNav from './Employee/Components/AdminNav';
 
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
             path="/Employee" 
             element={
               <ProtectedRoute>
-                <Navbar />
+                <AdminNav />
                 <AdminDashboard />
               </ProtectedRoute>
                 } 

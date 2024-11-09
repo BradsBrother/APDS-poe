@@ -49,6 +49,12 @@ const Payment = () => {
             onChange={(e) => setAmount(e.target.value)}
             required
           />
+          <div class="input-container"> 
+            <div class="label-container"> 
+              <label><strong>SWIFT Code:</strong></label> 
+            </div> 
+            <input type="text" class="readonly-input" placeholder="BBZAJJGQE" readOnly /> 
+          </div>
           <select
             value={currency}
             onChange={(e) => setCurrency(e.target.value)}
