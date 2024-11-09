@@ -35,10 +35,23 @@ const ModalComponent = ({ isModalOpen, closeModal, bf }) => {
               </div>
             ) : (
               <div className="moo-dengbox">
-                <div className={`closemoodeng ${showLoader ? 'hidden' : ''}`} onClick={() => { 
-                  closeModal(); 
-                  window.location.reload(); 
-                }}>
+                <div
+                  className={`closemoodeng ${showLoader ? 'hidden' : ''}`}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => { 
+                    closeModal();
+                    window.location.reload(); 
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      closeModal();
+                      window.location.reload();
+                    }
+                  }}
+                  aria-label="Close modal"
+                >
+
                   <CgClose size={35} />
                 </div>
                 <img src={bf} alt="moodeng" />

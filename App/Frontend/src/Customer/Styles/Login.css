@@ -48,7 +48,7 @@
 }
 
 /* Button styling */
-.login-box button {
+.login-box .btn {
     width: 100%;
     padding: 12px;
     background-color: #003087;
@@ -60,7 +60,7 @@
     margin-top: 20px;
 }
 
-.login-box button:hover {
+.login-box .btn:hover {
     background-color: #005BBB;
 }
 
@@ -104,4 +104,6 @@
     cursor: pointer;
     color: #a8a8a8;
     font-size: 18px;
+    background-color: none;
+    border: none;
 }
