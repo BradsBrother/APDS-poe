@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import bf from '../../moodeng.png';
-import ModalComponent from "./VerifyBox";
+import ModalComponent from "./VerifyBox"; // Your existing modal component
 import '../Styles/AdminDashboard.css';
 
 const AdminDashboard = () => {
     const [transactions, setTransactions] = useState([]);
-    const [selectedTransactions, setSelectedTransactions] = useState([]);
-    const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+    const [isModalOpen, setIsModalOpen] = useState(false); // State for your main modal visibility
+    const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false); // State for verification modal
+    const [selectedTransaction, setSelectedTransaction] = useState(null); // Selected transaction for verification
+    const [swiftCode, setSwiftCode] = useState(''); // State for SWIFT code input
 
     useEffect(() => {
         const fetchUnverifiedTransactions = async () => {
@@ -18,6 +20,7 @@ const AdminDashboard = () => {
                     },
                     credentials: "include"
                 });
+                
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -33,40 +36,24 @@ const AdminDashboard = () => {
         fetchUnverifiedTransactions();
     }, []);
 
-    const handleVerify = (transactionId) => {
-        setSelectedTransactions((prev) => [...prev, transactionId]);
+    const handleVerifyTransaction = (transaction) => {
+        setSelectedTransaction(transaction);
+        setIsVerifyModalOpen(true);
     };
 
-    const handleSubmitToSwift = async () => {
-        try {
-            const response = await fetch("https://localhost:3030/api/Payment/VerifySubmit", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ transactionIds: selectedTransactions }),
-                credentials: "include"
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            alert("Transactions submitted successfully.");
-            setTransactions(transactions.filter(t => !selectedTransactions.includes(t._id)));
-            setSelectedTransactions([]);
-            setIsModalOpen(true); // Open modal on successful submission
-        } catch (error) {
-            console.error("Error submitting transactions:", error);
+    const handleVerifyModalConfirm = () => {
+        // Simple SWIFT code validation (customize as needed)
+        if (swiftCode.length >= 8 && swiftCode.length <= 11) {
+            setIsVerifyModalOpen(false);
+            setIsModalOpen(true); // Open main modal after verification
+        } else {
+            alert("Invalid SWIFT code. Please enter a valid code.");
         }
-    };
-
-    const openModal = () => {
-        setIsModalOpen(true);
     };
 
     const closeModal = () => {
         setIsModalOpen(false);
+        setSelectedTransaction(null);
     };
 
     return (
@@ -94,13 +81,9 @@ const AdminDashboard = () => {
                                             <td>{transaction.currency}</td>
                                             <td>{transaction.acc_no}</td>
                                             <td>
-                                                {selectedTransactions.includes(transaction._id) ? (
-                                                    "Verified"
-                                                ) : (
-                                                    <button onClick={() => handleVerify(transaction._id)}>
-                                                        Verify
-                                                    </button>
-                                                )}
+                                                <button onClick={() => handleVerifyTransaction(transaction)}>
+                                                    Verify
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}
@@ -108,23 +91,36 @@ const AdminDashboard = () => {
                             </table>
                         )}
                     </div>
-                    <button
-                        className="submit-to-swift-button"
-                        onClick={handleSubmitToSwift}
-                        disabled={selectedTransactions.length === 0}>
-                        Submit to SWIFT
-                    </button>
-                    
-                    {/* New Button to Open Modal */}
-                    <button className="open-modal-btn" onClick={openModal}>
-                        Open Modal
-                    </button>
                 </div>
             </div>
 
-            <div style={{display: 'flex',justifyContent: 'center', alignItems: 'center'}}>
-            <ModalComponent isModalOpen={isModalOpen} closeModal={closeModal} bf={bf} />
-            </div>
+            {/* Verification Modal */}
+            {isVerifyModalOpen && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h2>Enter SWIFT Code for Verification</h2>
+                        <input
+                            type="text"
+                            value={swiftCode}
+                            onChange={(e) => setSwiftCode(e.target.value)}
+                            placeholder="Enter SWIFT code"
+                        />
+                        <button onClick={handleVerifyModalConfirm}>Confirm</button>
+                        <button onClick={() => setIsVerifyModalOpen(false)}>Cancel</button>
+                    </div>
+                </div>
+            )}
+
+            {/* Your existing modal */}
+            {isModalOpen && selectedTransaction && (
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <ModalComponent
+                        isModalOpen={isModalOpen}
+                        closeModal={closeModal}
+                        bf={bf}
+                    />
+                </div>
+            )}
         </div>
     );
 };

@@ -14,17 +14,26 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Navbar />
+        
         <Routes>
           <Route path="/" element={<UserLogin />} />
           <Route path="/register" element={<Register />} />
           <Route path="/emplogin" element={<Login />} />
-          <Route path="/Employee" element={<AdminDashboard />} />
           <Route 
             path="/dashboard" 
             element={
               <ProtectedRoute>
+                <Navbar />
                 <Dashboard />
+              </ProtectedRoute>
+                } 
+              />
+              <Route 
+            path="/Employee" 
+            element={
+              <ProtectedRoute>
+                <Navbar />
+                <AdminDashboard />
               </ProtectedRoute>
                 } 
               />
@@ -32,6 +41,7 @@ function App() {
                 path="/transaction" 
                 element={
                   <ProtectedRoute>
+                    <Navbar />
                     <Transaction />
                   </ProtectedRoute>
                 } 
