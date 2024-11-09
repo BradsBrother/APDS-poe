@@ -93,12 +93,14 @@ const Login = () => {
               placeholder="Enter your password"
               required
             />
-            <span
-              className="password-toggle-icon"
-              onClick={togglePasswordVisibility}
-            >
-              <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />
-            </span>
+            <button
+                            type="button" // Prevents form submission
+                            className="password-toggle-icon"
+                            onClick={togglePasswordVisibility}
+                            aria-label="Toggle password visibility"
+                        >
+                            <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />
+                        </button>
           </div>
 
           {errorMessage && <p className="error-message">{errorMessage}</p>}
@@ -109,8 +111,8 @@ const Login = () => {
         {/* New button for navigating to customer login */}
         <button 
           onClick={navigateToCustomerLogin} 
-          className="customer-login-button"
-          style={{ marginTop: '20px', padding: '10px 15px', cursor: 'pointer' }}
+          className="login-button"
+          style={{ marginTop: '20px', padding: '10px 15px', cursor: 'pointer', fontWeight: '400'}}
         >
           Go to Customer Login
         </button>

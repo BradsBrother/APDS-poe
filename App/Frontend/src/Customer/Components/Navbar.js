@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const [isAuthenticated, setisAuthenticated] = useState(false);
+  const [isDropdownVisible, setisDropdownVisible] = useState(false);
 
   const logoutUser = async () => {
     const csrfToken = await getCsrfToken();
@@ -23,7 +23,7 @@ const Navbar = () => {
     });
 
     navigate("/");
-    setIsAuthenticated(false);
+    setisAuthenticated(false);
 
     return response;
   };
@@ -56,7 +56,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchAuthStatus = async () => {
       const authStatus = await checkAuthStatus();
-      setIsAuthenticated(authStatus);
+      setisAuthenticated(authStatus);
     };
 
     fetchAuthStatus();
@@ -74,7 +74,7 @@ const Navbar = () => {
           <div className="navbar-profile">
             <button
               className="navbar-profile-button"
-              onClick={() => setDropdownVisible(!isDropdownVisible)}
+              onClick={() => setisDropdownVisible(!isDropdownVisible)}
             >
               <img src="https://via.placeholder.com/30" alt="User Profile" />
               Log Out
