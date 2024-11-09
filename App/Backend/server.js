@@ -16,7 +16,7 @@ const {requireCsrf, csrfProtection} = require("./Middleware/requireCSRF.js");
 const employeeRoutes = require("./Routes/Employee")
 
 
-const app = express();
+let app = express();
 const sslKeyPath = path.resolve("./ssl/server.key");
 const sslCertPath = path.resolve("./ssl/server.cert");
 
