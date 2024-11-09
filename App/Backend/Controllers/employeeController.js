@@ -21,31 +21,32 @@ const getEmployeePassword = async(req, res) =>{
     }
 }
 
-const loginEmployee = async(req, res) =>{
-    const {employee_id, password} = req.body
-
-    try{
-        const user = await employeeModel.loginEmployee(employee_id, password)
-        const token = createToken(user)
-
-        res.cookie("token", token,{
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            maxAge: 15*60*1000,
-            sameSite: "strict",
-        })
-
-        res.status(200).json({message: "Success"})
-    }catch(error){
-        res.status(400).json({error: error.message})
+const loginEmployee = async (req, res) => {
+    const { employee_id, password } = req.body;
+  
+    try {
+      const user = await employeeModel.loginEmployee(employee_id, password);
+      const token = createToken(user);
+  
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 15 * 60 * 1000,
+        sameSite: "strict",
+      });
+  
+      res.status(200).json({ message: "Success" });
+    } catch (error) {
+      res.status(400).json({ error: error.message || 'Invalid employee ID or password' });
     }
-}
+  };
+  
 
 const logoutEmployee = (req, res) => {
     res.cookie("token", "", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        expires: new Date(0),  // This clears the cookie
+        expires: new Date(0),
         sameSite: "strict",
         path: "/",
     });
