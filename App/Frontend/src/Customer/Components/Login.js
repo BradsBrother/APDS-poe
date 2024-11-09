@@ -40,7 +40,6 @@ const UserLogin = () => {
             // Check if the response is not OK (e.g., status 400/500)
             if (!response.ok) {
                 // Try to extract the error from response JSON
-
                 setErrorMessage("Incorrect login details");
                 return; 
             }
@@ -57,6 +56,11 @@ const UserLogin = () => {
     // Toggle password visibility
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
+    };
+
+    // New function to navigate to the employee login page
+    const navigateToEmployeeLogin = () => {
+        navigate("/emplogin");
     };
 
     return (
@@ -97,6 +101,15 @@ const UserLogin = () => {
                     <button type="submit">Login</button>
                 </form>
                 <a href="/register" className="small-text">Don't have an account? Register</a>
+                
+                {/* New button for navigating to employee login */}
+                <button 
+                    onClick={navigateToEmployeeLogin} 
+                    className="employee-login-button"
+                    style={{ marginTop: '20px', padding: '10px 15px', cursor: 'pointer' }}
+                >
+                    Go to Employee Login
+                </button>
             </div>
         </div>
     );

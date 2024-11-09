@@ -1,63 +1,98 @@
 /* Main container for dashboard */
-.dashboard-container {
+.custom-dashboard-container {
     padding: 30px;
     background-color: #F5F5F5;
     min-height: 85vh;
-}
-
-/* Card container for different sections */
-.dashboard-card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.dashboard-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  /* Header styling for the section */
+  .custom-dashboard-header {
     color: #003087;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
-}
-
-/* Section for overview and recent transactions */
-.dashboard-section {
+  }
+  
+  /* Section for overview and recent transactions */
+  .custom-dashboard-section {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 20px;
-}
-
-.dashboard-section .section {
+    flex-wrap: wrap;
+  }
+  
+  /* Section layout for each custom section */
+  .custom-dashboard-section .custom-section {
     flex: 1;
-}
-
-/* Table styling for transactions */
-.transaction-table {
+    min-width: 300px;
+  }
+  
+  /* Table styling for transactions */
+  .custom-transaction-table {
     width: 100%;
+    max-width: 1200px; /* Ensures the table doesn't stretch too wide */
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     border-collapse: collapse;
-}
-
-.transaction-table th, .transaction-table td {
+    border-radius: 8px; /* Optional: adds rounded corners */
+    overflow: hidden; /* Keeps corners rounded */
+  }
+  
+  .custom-transaction-table th,
+  .custom-transaction-table td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #DDD;
-}
-
-.transaction-table th {
+  }
+  
+  .custom-transaction-table th {
     background-color: #003087;
     color: white;
-}
-.submit-to-swift-button {
+    font-size: 16px;
+  }
+  
+  .custom-transaction-table td {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .custom-transaction-table tr:last-child td {
+    border-bottom: none; /* Remove bottom border from last row */
+  }
+  
+  /* Make the table more responsive on smaller screens */
+  @media (max-width: 768px) {
+    .custom-transaction-table th, .custom-transaction-table td {
+      padding: 8px; /* Reduce padding on smaller screens */
+      font-size: 12px; /* Smaller text for mobile */
+    }
+  
+    .custom-dashboard-section {
+      flex-direction: column; /* Stack sections vertically on small screens */
+    }
+  
+    .custom-dashboard-container {
+      padding: 15px; /* Less padding on smaller screens */
+    }
+  }
+  
+  /* Button styling */
+  .submit-to-swift-button {
     margin-top: 20px;
     padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
-}
-
-.submit-to-swift-button:disabled {
+  }
+  
+  .submit-to-swift-button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
-}
+  }
+  

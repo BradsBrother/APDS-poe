@@ -89,29 +89,13 @@ app.use((req, res, next) => {
   next();
 });
 
-// Rate limiting middleware for login attempts
 const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // Limit to 5 requests 
+  windowMs: 15 * 60 * 1000, 
+  max: 5, 
   message: "Too many login attempts. Try again later.",
 });
 app.use("/api/User/login", loginLimiter);
 
-// express-brute
-const store = new ExpressBrute.MemoryStore(); 
-const bruteforce = new ExpressBrute(store, {
-  freeRetries: 5,             // 5 attempts before blocking the user
-  minWait: 5 * 60 * 1000,     // 5 minutes wait after limit has been reached
-  maxWait: 60 * 60 * 1000,    // 1-hour lock 
-  lifetime: 24 * 60 * 60,     // Track for 1 day
-});
-
-
-app.post("/api/User/login", bruteforce.prevent, (req, res) => {
-  res.send('Login attempted');
-});
-
-// MongoDB connection
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -137,6 +121,7 @@ mongoose
   app.get('/csrf-token', csrfProtection, (req, res) => {
     res.json({ csrfToken: req.csrfToken() });
   });
+  
   
   app.use(requireCsrf); 
 

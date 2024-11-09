@@ -1,60 +1,105 @@
 import React, { useEffect, useState } from 'react';
 import bf from '../../moodeng.png';
-import ModalComponent from "./VerifyBox"; // Your existing modal component
+import ModalComponent from "./VerifyBox"; 
 import '../Styles/AdminDashboard.css';
+import { getCsrfToken } from '../Services/csrfService';
 
 const AdminDashboard = () => {
-    const [transactions, setTransactions] = useState([]);
-    const [isModalOpen, setIsModalOpen] = useState(false); // State for your main modal visibility
-    const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false); // State for verification modal
-    const [selectedTransaction, setSelectedTransaction] = useState(null); // Selected transaction for verification
-    const [swiftCode, setSwiftCode] = useState(''); // State for SWIFT code input
+  const [transactions, setTransactions] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [swiftCode, setSwiftCode] = useState('');
+  const [csrfToken, setCsrfToken] = useState('');
 
-    useEffect(() => {
-        const fetchUnverifiedTransactions = async () => {
-            try {
-                const response = await fetch("https://localhost:3030/api/Payment/UnverifiedPayments", {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    credentials: "include"
-                });
-                
+  useEffect(() => {
+    const fetchUnverifiedTransactions = async () => {
+      try {
+        const csrfToken = await getCsrfToken();
+        const response = await fetch("https://localhost:3030/api/Payment/UnverifiedPayments", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            'CSRF-Token': csrfToken,
+          },
+          credentials: "include",
+        });
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                setTransactions(data);
-            } catch (error) {
-                console.error("Error fetching unverified transactions:", error);
-            }
-        };
-
-        fetchUnverifiedTransactions();
-    }, []);
-
-    const handleVerifyTransaction = (transaction) => {
-        setSelectedTransaction(transaction);
-        setIsVerifyModalOpen(true);
-    };
-
-    const handleVerifyModalConfirm = () => {
-        // Simple SWIFT code validation (customize as needed)
-        if (swiftCode.length >= 8 && swiftCode.length <= 11) {
-            setIsVerifyModalOpen(false);
-            setIsModalOpen(true); // Open main modal after verification
-        } else {
-            alert("Invalid SWIFT code. Please enter a valid code.");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
+
+        const data = await response.json();
+        setTransactions(data);
+      } catch (error) {
+        console.error("Error fetching unverified transactions:", error);
+      }
     };
 
-    const closeModal = () => {
-        setIsModalOpen(false);
-        setSelectedTransaction(null);
+    fetchUnverifiedTransactions();
+  }, []);
+
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      try {
+        const response = await fetch("https://localhost:3030/csrf-token", {
+          method: "GET",
+          credentials: "include",
+        });
+
+        const data = await response.json();
+        setCsrfToken(data.csrfToken);
+      } catch (error) {
+        console.error("Error fetching CSRF token:", error);
+      }
     };
+
+    fetchCsrfToken();
+  }, []);
+
+  const handleVerifyTransaction = (transaction) => {
+    setSelectedTransaction(transaction);
+    setIsVerifyModalOpen(true);
+  };
+
+  const handleVerifyModalConfirm = async () => {
+    if (swiftCode.length >= 8 && swiftCode.length <= 11) {
+      try {
+        const response = await fetch(`https://localhost:3030/api/Payment/VerifyTransaction/${selectedTransaction._id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "CSRF-Token": csrfToken, 
+          },
+          credentials: "include",
+          body: JSON.stringify({ swiftCode }),
+        });
+
+        if (response.ok) {
+          const updatedTransaction = await response.json();
+
+          setTransactions(transactions.map(transaction =>
+            transaction._id === updatedTransaction._id ? updatedTransaction : transaction
+          ));
+
+          setIsVerifyModalOpen(false);
+          setIsModalOpen(true);
+        } else {
+          const errorData = await response.json();
+          alert(errorData.error || "Failed to verify transaction.");
+        }
+      } catch (error) {
+        console.error("Error verifying transaction:", error);
+      }
+    } else {
+      alert("Invalid SWIFT code. Please enter a valid code.");
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedTransaction(null);
+  };
 
     return (
         <div className="dashboard-container">
@@ -104,6 +149,7 @@ const AdminDashboard = () => {
                             value={swiftCode}
                             onChange={(e) => setSwiftCode(e.target.value)}
                             placeholder="Enter SWIFT code"
+                            className='modal-content-inp'
                         />
                         <button onClick={handleVerifyModalConfirm}>Confirm</button>
                         <button onClick={() => setIsVerifyModalOpen(false)}>Cancel</button>
@@ -113,12 +159,14 @@ const AdminDashboard = () => {
 
             {/* Your existing modal */}
             {isModalOpen && selectedTransaction && (
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <ModalComponent
-                        isModalOpen={isModalOpen}
-                        closeModal={closeModal}
-                        bf={bf}
-                    />
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <ModalComponent
+                            isModalOpen={isModalOpen}
+                            closeModal={closeModal}
+                            bf={bf}
+                        />
+                    </div>
                 </div>
             )}
         </div>

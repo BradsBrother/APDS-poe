@@ -1,4 +1,5 @@
 const paymentModel = require("../Models/paymentModel")
+require('dotenv').config();
 
 const makePayment = async(req, res) => {
     const {amount, currency} = req.body
@@ -40,11 +41,38 @@ const verifyAndSubmitTransactions = async (req, res) => {
     }
 };
 
+const verifyTransaction = async (req, res) => {
+    const { id } = req.params;
+    const { swiftCode } = req.body;
+    const storedSwiftCode = process.env.SWIFT_CODE;
+
+    if (swiftCode !== storedSwiftCode) {
+        return res.status(400).json({ error: 'Incorrect SWIFT code' });
+    }
+
+    try {
+        const transaction = await paymentModel.findByIdAndUpdate(
+            id,
+            { isVerified: true, submittedToSwift: true },
+            { new: true }
+        );
+
+        if (!transaction) {
+            return res.status(404).json({ error: 'Transaction not found' });
+        }
+
+        res.status(200).json(transaction);
+    } catch (error) {
+        console.error("Error in verifyTransaction:", error); // Log the error details
+        res.status(500).json({ error: 'Failed to verify the transaction', details: error.message });
+    }
+};
 
 
 module.exports = {
     makePayment,
     getUserPayments,
     getUnverifiedTransactions,
-    verifyAndSubmitTransactions
+    verifyAndSubmitTransactions,
+    verifyTransaction
 }

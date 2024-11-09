@@ -1,113 +1,89 @@
-/* Main navbar container */
+/* Navbar styling */
 .navbar {
-    background-color: #003087; /* Standard Bank primary color */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #1a1f36, #2c2f48);
+  padding: 10px 20px;
+  color: #e4e4e4;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Navbar logo styling */
+.navbar-logged-in {
+  background: linear-gradient(135deg, #1a1f36, #2c2f48);
+}
+
 .navbar-logo {
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffaf6e;
+  text-decoration: none;
 }
 
-/* Navigation links container */
 .navbar-links {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  align-items: center;
 }
 
-/* Navbar link styling */
 .navbar-links a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 500;
-    transition: color 0.3s ease;
+  margin: 0 15px;
+  color: #e4e4e4;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease-in-out;
 }
 
 .navbar-links a:hover {
-    color: #00A8E1; /* Hover effect with secondary blue color */
+  color: #ffaf6e;
 }
 
-/* Profile dropdown styling */
 .navbar-profile {
-    position: relative;
+  position: relative;
 }
 
 .navbar-profile-button {
-    color: white;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #e4e4e4;
+  transition: color 0.3s ease-in-out;
 }
 
-.navbar-profile-button img {
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
+.navbar-profile-button:hover {
+  color: #ffaf6e;
 }
 
-/* Dropdown content styling */
+.navbar-profile img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
 .navbar-profile-dropdown {
-    display: none;
-    position: absolute;
-    top: 50px;
-    right: 0;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-    z-index: 1000;
+  position: absolute;
+  right: 0;
+  top: 40px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 150px;
 }
 
-.navbar-profile-dropdown a {
-    display: block;
-    padding: 10px 20px;
-    color: #003087;
-    text-decoration: none;
-    font-size: 14px;
+.navbar-profile-dropdown a,
+.navbar-profile-dropdown button {
+  display: block;
+  margin: 5px 0;
+  color: #1a1f36;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
 }
 
-.navbar-profile-dropdown a:hover {
-    background-color: #f1f1f1;
-}
-
-/* Show dropdown on button hover */
-.navbar-profile:hover .navbar-profile-dropdown {
-    display: block;
-}
-
-/* Responsive navbar - mobile screens */
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .navbar-links {
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    .navbar-links a {
-        font-size: 18px;
-        text-align: left;
-        width: 100%;
-    }
+.navbar-profile-dropdown a:hover,
+.navbar-profile-dropdown button:hover {
+  color: #ffaf6e;
 }
