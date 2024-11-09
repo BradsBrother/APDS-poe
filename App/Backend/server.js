@@ -55,6 +55,8 @@ app.use(
       scriptSrc: ["'self'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:"],
+      frameAncestors: ["none"],
+      blockAllMixedContent: []
     },
   })
 );
