@@ -54,13 +54,13 @@ paymentSchema.statics.getUserPayments = async function(acc_no) {
         throw Error("Account number is required");
     }
 
-    // Validate if the user with the given account number exists
+    
     const existingUser = await userSchema.findOne({ acc_no });
     if (!existingUser) {
         throw Error("Account number is incorrect or does not exist");
     }
 
-    // Fetch the list of payments associated with the account number
+   
     const lstPayments = await this.find({ acc_no });
 
     // Return the payments, even if the list is empty (handle gracefully)
@@ -90,13 +90,13 @@ paymentSchema.statics.verifyTransaction = async function(transactionId) {
         const updatedTransaction = await this.findByIdAndUpdate(
             transactionId,
             { $set: { isVerified: true, submittedToSwift: true } },
-            { new: true } // Return the updated document
+            { new: true } 
         );
 
         return updatedTransaction;
     } catch (error) {
-        console.error("Error in verifyTransaction:", error); // Log detailed error
-        throw error; // Rethrow to propagate the error to the response
+        console.error("Error in verifyTransaction:", error); 
+        throw error; 
     }
 };
 

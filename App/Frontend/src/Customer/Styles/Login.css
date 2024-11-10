@@ -1,4 +1,4 @@
-/* Main container for the login form */
+
 .login-container {
     background-color: #F5F5F5;
     display: flex;
@@ -8,7 +8,6 @@
     padding: 20px;
 }
 
-/* Form box styling */
 .login-box {
     background-color: white;
     padding: 40px;
@@ -18,7 +17,7 @@
     width: 100%;
 }
 
-/* Form heading */
+
 .login-box h1 {
     color: #003087;
     font-size: 24px;
@@ -27,7 +26,7 @@
     margin-bottom: 20px;
 }
 
-/* Input fields styling */
+
 .login-box input {
     width: 100%;
     padding: 12px;
@@ -40,14 +39,14 @@
     box-sizing: border-box;
 }
 
-/* Focus effect for inputs */
+
 .login-box input:focus {
     outline: none;
     border-color: #005BBB;
     box-shadow: 0 0 4px rgba(0, 91, 187, 0.3);
 }
 
-/* Button styling */
+
 .login-box .btn {
     width: 100%;
     padding: 12px;
@@ -64,7 +63,7 @@
     background-color: #005BBB;
 }
 
-/* Error message styling */
+
 .error-message {
     color: red;
     margin-top: 5px;
@@ -72,12 +71,12 @@
     text-align: center;
 }
 
-/* Placeholder styling */
+
 .login-box input::placeholder {
     color: #888;
 }
 
-/* Small text link */
+
 .login-box .small-text {
     color: #005BBB;
     font-size: 14px;
@@ -95,7 +94,7 @@
 
 .password-container input {
     width: 100%;
-    padding-right: 40px; /* Extra padding to accommodate the icon */
+    padding-right: 40px; 
 }
 
 .password-toggle-icon {

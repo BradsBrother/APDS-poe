@@ -1,4 +1,4 @@
-/* Main container for dashboard */
+
 .dashboard-container {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #1a1f36, #2c2f48);
@@ -10,7 +10,7 @@
   color: #e4e4e4;
 }
 
-/* Card container for different sections */
+
 .dashboard-card {
   width: 100%;
   background-color: rgba(30, 30, 30, 0.85); 
@@ -21,7 +21,7 @@
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Table styling for transactions */
+
 .transaction-table {
   width: 100%;
   border-collapse: collapse;
@@ -47,7 +47,7 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* Verify Button */
+
 .verify-button {
   padding: 8px 12px;
   font-size: 14px;
@@ -70,7 +70,7 @@
   transform: translateY(1px);
 }
 
-/* Modal Styles */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -88,12 +88,12 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%; /* Adjust width as needed, e.g., 100%, 500px, etc. */
-  max-width: 600px; /* Fixes a consistent max width */
-  padding: 0 10px; /* Adjust padding to control height, if needed */
+  width: 100%; 
+  max-width: 600px; 
+  padding: 0 10px; 
   border-radius: 12px;
   background: white;
-  box-sizing: border-box; /* Ensures padding doesn't reduce width */
+  box-sizing: border-box; 
 }
 .modal-content {
   background: white;
@@ -150,14 +150,14 @@
   background: rgb(255, 255, 255);
   border-radius: 12px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
-  padding: 20px; /* Adjust padding to control internal spacing */
-  width: 100%; /* Keep width consistent, you can change this to a specific value if needed */
-  max-width: 600px; /* Specify max width if required */
-  min-height: 200px; /* Adjust this for minimum height as desired */
-  height: auto; /* Keeps the box flexible */
+  padding: 20px; 
+  width: 100%;
+  max-width: 600px; 
+  min-height: 200px; 
+  height: auto;
   color: #272727;
   text-align: center;
-  box-sizing: border-box; /* Ensures padding doesn't affect width */
+  box-sizing: border-box; 
 }
 
 
@@ -194,7 +194,7 @@
   margin-top: 10px;
 }
 
-/* Link styling in the modal box */
+
 .moo-dengbox a {
   text-decoration: none;
   color: #ff8c42;
@@ -203,7 +203,7 @@
 }
 
 .moo-dengbox a:hover {
-  color: #ff8c42; /* Lighter color when hovering */
+  color: #ff8c42; 
   text-decoration: underline;
 }
 
@@ -221,7 +221,7 @@
   color: #ff8c42;
 }
 
-/* Responsive Styling */
+
 @media (max-width: 480px) {
 .dashboard-container {
   padding: 20px;
@@ -256,7 +256,7 @@
   color: #999999;
   animation: pulse 1.5s infinite;
 }
-/* From Uiverse.io by abrahamcalsin */ 
+
 .dot-spinner {
   --uib-size: 2.8rem;
   --uib-speed: 0.9s;

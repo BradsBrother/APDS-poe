@@ -108,7 +108,7 @@ const Login = () => {
           <button type="submit" className="login-button">Login</button>
         </form>
 
-        {/* New button for navigating to customer login */}
+        {}
         <button 
           onClick={navigateToCustomerLogin} 
           className="login-button"

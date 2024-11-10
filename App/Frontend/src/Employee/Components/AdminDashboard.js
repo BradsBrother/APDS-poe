@@ -157,7 +157,7 @@ const AdminDashboard = () => {
                 </div>
             )}
 
-            {/* Your existing modal */}
+            {}
             {isModalOpen && selectedTransaction && (
                 <div className="modal-overlay">
                     <div className="modal-content">
