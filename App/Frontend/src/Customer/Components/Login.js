@@ -22,7 +22,7 @@ const UserLogin = () => {
             acc_no: accountNumber,
             password,
         };
-          
+
         try {
             // Fetch CSRF token first
             const csrfToken = await getCsrfToken();
@@ -52,6 +52,7 @@ const UserLogin = () => {
             setErrorMessage("An error occurred while logging in. Please try again later.");
         }        
     };
+    
     
     // Toggle password visibility
     const togglePasswordVisibility = () => {
