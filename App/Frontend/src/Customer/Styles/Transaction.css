@@ -1,4 +1,4 @@
-/* Container for transaction page */
+
 .transaction-container {
     background-color: #F5F5F5;
     padding: 50px;
@@ -77,6 +77,6 @@
     margin-bottom: 8px; 
 } 
 .input-container { 
-    width: 100%; /* Adjust width as needed */ 
+    width: 100%;
     margin-bottom: 20px; 
 }

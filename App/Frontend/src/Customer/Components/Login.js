@@ -48,7 +48,7 @@ const UserLogin = () => {
             navigate("/dashboard");
         
         } catch (error) {        
-            // Use a fallback error message or the error's message if available
+           
             setErrorMessage("An error occurred while logging in. Please try again later.");
         }        
     };
@@ -104,7 +104,7 @@ const UserLogin = () => {
                 </form>
                 <a href="/register" className="small-text">Don't have an account? Register</a>
                 
-                {/* New button for navigating to employee login */}
+                {}
                 <button 
                     onClick={navigateToEmployeeLogin} 
                     className="employee-login-button btn"

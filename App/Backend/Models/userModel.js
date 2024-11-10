@@ -68,7 +68,7 @@ const userSchema = new Schema({
             throw Error("Incorrect password");
         }
     
-        return user; // Return the user object upon successful login
+        return user; 
     };
     
    
